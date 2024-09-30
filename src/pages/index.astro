@@ -1,0 +1,37 @@
+---
+import Layout from '../layouts/Layout.astro';
+import Footer from '../components/Footer.astro';
+import Header from '../components/header.astro';
+---
+<Layout title="Inicia sesión">
+
+  <main>
+    <Header/>
+    <body style="background-color: #f0f0f0;"> 
+      <div class="cuadro-blanco">
+          <!-- Contenido del cuadro -->   
+      </div>
+  </body>
+  </main>
+  <Footer />
+</Layout>
+
+<style>
+  
+  .cuadro-blanco {
+            width: 425px;
+            height: 600px; 
+            background-color: white; 
+            border: 1px solid #ccc; 
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1); 
+            margin: 50px auto; 
+            padding: 20px; 
+            border-radius: 10px; 
+        }
+        body {
+    margin-top: 89px; /* Espacio entre el header y el contenido */
+    margin-bottom: 200px; /* Espacio entre el contenido y el footer */
+	}
+    
+
+</style>
