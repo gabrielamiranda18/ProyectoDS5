@@ -1,8 +1,14 @@
 ---
+import { Image } from 'astro:assets';
 ---
 <header class="header">
   <div class="header-container">
-      
+     <div class="logo">
+    <img  src="/LogoF.png" width="80" height="80"/>    
+    </div> 
+    <div class="titulo">
+    <p>JS.Electronics.PTY</p>
+  </div>
   </div>
 </header>
 
@@ -13,7 +19,7 @@
     left: 0;
     width: 100%;
     background-color: white; /* Fondo blanco */
-    padding: 33px 0px;
+    padding: 4px 0px;
     box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1); /* Sombra para destacar la cabecera */
     z-index: 1000;
     text-align: center;
@@ -21,30 +27,24 @@
 
 .header-container {
     display: flex;
-    justify-content: space-between;
+    justify-content: flex-start;
     align-items: center;
     max-width: 1200px;
     margin: 0 auto;
 }
-
-.nav-menu ul {
-    list-style: none;
-    display: flex;
-    gap: 20px;
-    padding: 0;
+.logo {
+  display: flex;
+  align-items: center;
 }
 
-.nav-menu ul li {
-    display: inline;
+.titulo {
+  margin-left: 10px; /* Añade espacio entre el logo y el texto */
 }
 
-.nav-menu ul li a {
-    text-decoration: none;
-    color: #333;
-    font-weight: bold;
-}
-
-.nav-menu ul li a:hover {
-    color: #007bff;
+.titulo p {
+  font-size: 18px; /* Tamaño del texto */
+  font-weight: bold;
+  color: grey;
+  margin: 0; /* Elimina el margen del párrafo */
 }
 </style>
