@@ -89,46 +89,61 @@ main {
 .footer {
     background-color: #001B58;
     color: white;
-    width: 100%; /* El footer ocupará todo el ancho de la página */
-    padding: 20px 0; /* Espaciado reducido para que el footer sea más pequeño */
+    width: 100%;
+    padding: 20px 0;
     text-align: left;
     position: relative;
 }
 
+/* Contenedor del footer */
 .footer-container {
     display: flex;
+    flex-wrap: wrap; /* Permitir que los elementos se ajusten automáticamente */
     justify-content: space-between;
     max-width: 1200px;
     margin: 0 auto;
     padding: 0 20px;
 }
-.social-icons{
-    margin-left: 5px; 
+
+/* Estilos para la sección de iconos sociales */
+.social-icons {
+    margin-left: 5px;
     margin-top: -20px;
 }
 
 .logo-section {
     flex: 1;
+    min-width: 150px; /* Asegura que la sección del logo no se haga muy pequeña */
 }
 
+/* Estilos para el texto debajo del logo */
 .logo-section p {
     font-size: 14px;
     margin-top: 10px;
     color: #ccc;
 }
 
+/* Sección de enlaces del footer */
 .footer-links {
     display: flex;
     flex: 4;
     justify-content: space-between;
+    flex-wrap: wrap; /* Permitir que las secciones se ajusten en pantallas pequeñas */
 }
 
+.link-section {
+    min-width: 150px; /* Asegura que las secciones no se encojan demasiado */
+    margin-bottom: 20px; /* Añade espacio en pantallas pequeñas */
+}
+
+/* Estilos para los títulos de las secciones */
 .link-section h4 {
     font-size: 16px;
     margin-bottom: 10px;
     color: #fff;
 }
 
+/* Lista de enlaces */
 .link-section ul {
     list-style: none;
     padding: 0;
@@ -138,15 +153,18 @@ main {
     margin-bottom: 8px;
 }
 
+/* Estilos para los enlaces */
 .link-section ul li a {
     color: #ccc;
     text-decoration: none;
 }
 
+/* Hover en los enlaces */
 .link-section ul li a:hover {
     color: #fff;
 }
 
+/* Pie de página final */
 .footer-bottom {
     text-align: center;
     margin-top: 20px;
@@ -154,5 +172,26 @@ main {
     padding-top: 10px;
     font-size: 12px;
     color: #ccc;
+}
+
+/* Media Queries para pantallas pequeñas (móviles) */
+@media (max-width: 768px) {
+    .footer-container {
+        flex-direction: column; /* Hace que los elementos se apilen verticalmente */
+        text-align: center;
+    }
+
+    .logo-section {
+        margin-bottom: 20px; /* Añade espacio entre el logo y los enlaces */
+    }
+
+    .footer-links {
+        flex-direction: column; /* Hace que los enlaces se apilen en una columna */
+        align-items: center; /* Centra las secciones de enlaces */
+    }
+
+    .link-section {
+        margin-bottom: 20px; /* Espacio entre las secciones en pantallas pequeñas */
+    }
 }
 </style>
