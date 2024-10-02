@@ -1,5 +1,9 @@
 {
+<<<<<<< HEAD
+  "name": "prueba",
+=======
   "name": "proyectods5",
+>>>>>>> fd746a0a9583863545b75016a348adf770bf5943
   "type": "module",
   "version": "0.0.1",
   "scripts": {
