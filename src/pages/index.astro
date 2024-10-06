@@ -4,31 +4,41 @@ import Footer from '../components/Footer.astro';
 import Header from '../components/header.astro';
 ---
 <Layout title="Inicia sesión">
-
   <main>
-    <Header/>
-    <body style="background-color: #f0f0f0;"> 
+    <Header />
+    <div class="login-wrapper">
       <div class="cuadro-blanco">
-          <!-- Contenido del cuadro -->  
-          <div class="login-container">
-            <h1>Iniciar sesión</h1>
-            <div class="input-container">
-                <input type="email" id="email" placeholder="Correo electrónico">
-                <input type="password" id="contraseña" placeholder="Contraseña">
-            </div>
-            <div class="restablecer_contra">
-              <p>Crear o restablecer contraseña</p>
-            </div>
-            <button class="login-btn">Iniciar sesión</button>
-            <p>¿Aún no tiene una cuenta? <a href="#" class="crear-cuenta">Crear cuenta</a></p>
+        <!-- Contenido del cuadro -->
+        <div class="login-container">
+          <h1>Iniciar sesión</h1>
+          <div class="input-container">
+            <input type="email" id="email" placeholder="Correo electrónico">
+            <input type="password" id="contraseña" placeholder="Contraseña">
+          </div>
+          <div class="restablecer_contra">
+            <p>Crear o restablecer contraseña</p>
+          </div>
+          <button class="login-btn">Iniciar sesión</button>
+          <p>¿Aún no tiene una cuenta? <a href="#" class="crear-cuenta">Crear cuenta</a></p>
         </div>
-  </body>
+      </div>
+    </div>
   </main>
   <Footer />
 </Layout>
 
 <style>
-  /* Estilo para el contenedor principal */
+/* Contenedor general para centrar todo el contenido */
+.login-wrapper {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    min-height: calc(100vh - 200px); /* Altura dinámica menos espacio para header y footer */
+    padding: 50px 0; /* Espacio superior e inferior */
+    background-color: #f0f0f0;
+}
+
+/* Cuadro blanco centrado */
 .login-container {
     width: 100%;
     max-width: 400px;
@@ -146,20 +156,32 @@ p {
 }
 
   
-  .cuadro-blanco {
-            width: 425px;
-            height: 600px; 
-            background-color: white; 
-            border: 1px solid #ccc; 
-            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1); 
-            margin: 50px auto; 
-            padding: 20px; 
-            border-radius: 10px; 
-        }
-        body {
-    margin-top: 89px; /* Espacio entre el header y el contenido */
-    margin-bottom: 200px; /* Espacio entre el contenido y el footer */
-	}
-    
-
+.cuadro-blanco {
+    width: 90%; /* Ocupa el 90% del ancho de la pantalla */
+    max-width: 425px; /* Establece el ancho máximo en pantallas grandes */
+    min-width: 250px; /* Establece un ancho mínimo para pantallas muy pequeñas */
+    height: auto; /* Ajusta la altura automáticamente según el contenido */
+    background-color: white; 
+    border: 1px solid #ccc; 
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1); 
+    margin: 50px auto; 
+    padding: 20px; 
+    border-radius: 10px; 
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+}
+/* Ajustes adicionales para pantallas más pequeñas */
+@media (max-width: 768px) {
+    .login-wrapper {
+        padding: 20px; /* Menor padding en pantallas pequeñas */
+    }
+    .cuadro-blanco {
+        padding: 20px 20px;
+    }
+    .login-btn {
+        padding: 15px 50px;
+    }
+}
 </style>
