@@ -1,7 +1,7 @@
 ---
 import Layout from '../layouts/Layout.astro';
-import Footer from '../components/Footer2.astro';
-import Header from '../components/header.astro';
+import Footer from '../components/Footer.astro';
+import Header from '../components/Header_login.astro';
 ---
 <Layout title="Inicia sesión">
   <main>
@@ -19,7 +19,7 @@ import Header from '../components/header.astro';
             <p>Crear o restablecer contraseña</p>
           </div>
           <button class="login-btn">Iniciar sesión</button>
-          <p>¿Aún no tiene una cuenta? <a href="#" class="crear-cuenta">Crear cuenta</a></p>
+          <p>¿Aún no tiene una cuenta? <a href="/CrearCuenta" class="crear-cuenta">Crear cuenta</a></p>
         </div>
       </div>
     </div>
@@ -35,7 +35,7 @@ import Header from '../components/header.astro';
     align-items: center;
     min-height: calc(100vh - 200px); /* Altura dinámica menos espacio para header y footer */
     padding: 50px 0; /* Espacio superior e inferior */
-    background-color: #f0f0f0;
+    background-color: #F4F4F4;
 }
 
 /* Cuadro blanco centrado */
