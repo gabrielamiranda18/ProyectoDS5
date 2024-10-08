@@ -1,7 +1,5 @@
 #Proyecto Software V Página Web
 
-Aquí tienes el README actualizado con las instrucciones adicionales:
-
 ```markdown
 # Proyecto API - [Nombre del Proyecto]
 
