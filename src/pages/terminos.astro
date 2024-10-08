@@ -1,16 +1,10 @@
 ---
 // Importar los componentes de Header y Footer
 import Header from '../components/Header.astro';
----
+import Layout from '../layouts/Layout.astro';
 
-<html lang="es">
-  <head>
-    <title>Términos y Condiciones</title>
-    <meta charset="UTF-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <!-- Enlace a la fuente Inter desde Google Fonts -->
-    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;700&display=swap" rel="stylesheet">
-  </head>
+---
+<Layout title="Términos y Condiciones">  
   <body>
     <Header />
     <main>
@@ -21,7 +15,7 @@ import Header from '../components/Header.astro';
           <h1>Términos y Condiciones</h1>
         </div>
       </section>
-
+  
       <div class="content-box">
         <!-- Políticas de Garantía -->
         <section id="garantia">
@@ -35,9 +29,9 @@ import Header from '../components/Header.astro';
             <li>El cliente es responsable de realizar copias de seguridad de sus datos antes de enviar la laptop para reparación.</li>
           </ul>
         </section>
-
+  
         <hr />
-
+  
         <!-- Políticas de Promociones -->
         <section id="promociones">
           <h2>Políticas de Promociones</h2>
@@ -49,9 +43,9 @@ import Header from '../components/Header.astro';
             <li>La empresa se reserva el derecho de modificar las promociones en cualquier momento.</li>
           </ul>
         </section>
-
+  
         <hr />
-
+  
         <!-- Políticas de Privacidad y Seguridad -->
         <section id="privacidad">
           <h2>Políticas de Privacidad y Seguridad</h2>
@@ -66,7 +60,7 @@ import Header from '../components/Header.astro';
       </div>
     </main>
   </body>
-</html>
+</Layout>
 
 <style>
     
