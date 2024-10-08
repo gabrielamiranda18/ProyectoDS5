@@ -1,6 +1,5 @@
 ---
 import Header from "../components/Header_login.astro"
-import Footer from "../components/Footer.astro"
 import Layout from "../layouts/Layout.astro"
 ---
 
@@ -10,13 +9,13 @@ import Layout from "../layouts/Layout.astro"
     <div class="container">
       <li class="link-card">
         <h2>Crea tu cuenta</h2>
-  
-        <form>
+        <form id="registroForm" action="/api/crearUsuario" accept-charset="UTF-8" method="POST">
           <ul class="form-list">
             <li>
               <input
                 class="txt"
                 id="Nombre"
+                name="Nombre"
                 type="text"
                 placeholder="Nombre"
                 required
@@ -25,6 +24,7 @@ import Layout from "../layouts/Layout.astro"
             <li>
               <input
                 id="Apellido"
+                name="Apellido"
                 type="text"
                 placeholder="Apellido"
                 required
@@ -32,7 +32,26 @@ import Layout from "../layouts/Layout.astro"
             </li>
             <li>
               <input
+                id="Direccion"
+                name="Direccion"
+                type="text"
+                placeholder="Dirección"
+                required
+              />
+            </li>
+            <li>
+              <input 
+                id= "Celular"
+                name="Celular"
+                type="text"
+                placeholder="Celular"
+                required
+                />
+            </li>
+            <li>
+              <input
                 id="Correo"
+                name="Correo"
                 type="email"
                 placeholder="Correo electrónico"
                 required
@@ -41,6 +60,7 @@ import Layout from "../layouts/Layout.astro"
             <li>
               <input
                 id="Passw"
+                name="Passw"
                 type="password"
                 placeholder="Contraseña"
                 required
@@ -62,9 +82,7 @@ import Layout from "../layouts/Layout.astro"
       </li>
     </div>
   </body>
-  <Footer></Footer>
 </Layout>
-
 
 <style>
   .container {
@@ -93,7 +111,6 @@ import Layout from "../layouts/Layout.astro"
     margin-bottom: 2rem;
     font-style: ;
   }
-
   /* Lista del formulario */
   .form-list {
     list-style-type: none;
@@ -139,7 +156,7 @@ import Layout from "../layouts/Layout.astro"
   }
 
   .btn-primary {
-    background-color: #00a3c8;
+    background-color: #37B7C3;
     color: white;
     padding: 0.75rem;
     border: none;
@@ -176,7 +193,7 @@ import Layout from "../layouts/Layout.astro"
   }
 
   .login-link a {
-    color: #00a3c8;
+    color: #37B7C3;
     text-decoration: none;
     font-weight: bold;
   }
@@ -184,4 +201,5 @@ import Layout from "../layouts/Layout.astro"
   .login-link a:hover {
     text-decoration: underline;
   }
+
 </style>
