@@ -70,5 +70,5 @@ git push origin [rama-a-la-que-quieren-pushear]
 Si vas a trabajar con las APIs, necesitarás un archivo `.env` que contenga las variables de entorno necesarias. Este archivo debe incluir la `URL` de la API y la `KEY` de autenticación.
 
 Por favor, solicita estas credenciales antes de comenzar.
-=======
+
 Con estas instrucciones, los colaboradores podrán sincronizar su fork con el repositorio principal y subir sus cambios de manera efectiva.
