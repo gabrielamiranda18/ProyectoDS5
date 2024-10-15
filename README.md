@@ -1,7 +1,16 @@
 ## Proyecto Software V Página Web
 
+<<<<<<< HEAD
 > [!IMPORTANT]
 > Este repositorio contiene el código base para nuestro proyecto. Si es tu primera vez trabajando con este repositorio, sigue los siguientes pasos para configurarlo.
+=======
+Aquí tienes el README actualizado con las instrucciones adicionales:
+
+```markdown
+# Proyecto API - [Nombre del Proyecto]
+
+Este repositorio contiene el código base para nuestro proyecto. Si es tu primera vez trabajando con este repositorio, sigue los siguientes pasos para configurarlo.
+>>>>>>> parent of 7dedb94 (readme)
 
 ## Instalación
 
@@ -59,6 +68,7 @@ git push origin [rama-a-la-que-quieren-pushear]
 * Proporciona un título claro y descriptivo para tu PR.
 * En la descripción, explica los cambios que has hecho y por qué son necesarios.
 
+<<<<<<< HEAD
 ## Revisa y envía el PR
 * Asegúrate de revisar los cambios antes de enviarlo.
 *Una vez que estés satisfecho, haz clic en "Create Pull Request".
@@ -69,3 +79,6 @@ git push origin [rama-a-la-que-quieren-pushear]
 Si vas a trabajar con las APIs, necesitarás un archivo `.env` que contenga las variables de entorno necesarias. Este archivo debe incluir la `URL` de la API y la `KEY` de autenticación.
 
 Por favor, solicita estas credenciales antes de comenzar.
+=======
+Con estas instrucciones, los colaboradores podrán sincronizar su fork con el repositorio principal y subir sus cambios de manera efectiva.
+>>>>>>> parent of 7dedb94 (readme)
