@@ -1,9 +1,7 @@
-#Proyecto Software V Página Web
+## Proyecto Software V Página Web
 
-```markdown
-# Proyecto API - [Nombre del Proyecto]
-
-Este repositorio contiene el código base para nuestro proyecto. Si es tu primera vez trabajando con este repositorio, sigue los siguientes pasos para configurarlo.
+> [!IMPORTANT]
+> Este repositorio contiene el código base para nuestro proyecto. Si es tu primera vez trabajando con este repositorio, sigue los siguientes pasos para configurarlo.
 
 ## Instalación
 
@@ -19,12 +17,6 @@ npm install
 pnpm install
 ```
 
-## Configuración de las APIs
-
-Si vas a trabajar con las APIs, necesitarás un archivo `.env` que contenga las variables de entorno necesarias. Este archivo debe incluir la `URL` de la API y la `KEY` de autenticación.
-
-Por favor, solicita estas credenciales antes de comenzar.
-
 ## Sincronización con el repositorio principal
 
 Si necesitas actualizar tu fork con los últimos cambios del repositorio principal, sigue estos pasos:
@@ -32,7 +24,7 @@ Si necesitas actualizar tu fork con los últimos cambios del repositorio princip
 1. Añade el repositorio original como remoto:
 
    ```bash
-   git remote add upstream https://github.com/original-owner/ProyectoDS5.git
+   git remote add upstream https://github.com/Crei03/ProyectoDS5.git
    ```
 
 2. Obtén los cambios del repositorio principal:
@@ -54,14 +46,26 @@ Para subir tus cambios a tu propio repositorio (fork), usa el siguiente comando:
 ```bash
 git push origin [rama-a-la-que-quieren-pushear]
 ```
+> [!CAUTION]
+> Asegurate que tu PR no tenga conflictos al momento del merge
 
-## Uso
+## Crear un Pull Request (PR)
+1. Navega a tu fork en GitHub: Ve a tu repositorio en GitHub.
+2. Crea un Pull Request:
+   * Verás un botón que dice "Contribute" o "Compare & pull request". Haz clic en este botón.
+   * Asegúrate de que la rama base sea dev del repositorio original (Crei03/ProyectoDS5) y que la rama de comparación sea la que contiene tus cambios en tu fork.
 
-1. Clona el repositorio.
-2. Instala las dependencias.
-3. Solicita y configura el archivo `.env` con la URL y la KEY necesarias.
-4. Actualiza tu fork con los últimos cambios del repositorio principal.
-5. ¡Listo! Ahora estarás preparado para trabajar en el proyecto.
-```
+## Añade un título y descripción
+* Proporciona un título claro y descriptivo para tu PR.
+* En la descripción, explica los cambios que has hecho y por qué son necesarios.
 
-Con estas instrucciones, los colaboradores podrán sincronizar su fork con el repositorio principal y subir sus cambios de manera efectiva.
+## Revisa y envía el PR
+* Asegúrate de revisar los cambios antes de enviarlo.
+*Una vez que estés satisfecho, haz clic en "Create Pull Request".
+
+> [!NOTE]
+## Configuración de las APIs
+
+Si vas a trabajar con las APIs, necesitarás un archivo `.env` que contenga las variables de entorno necesarias. Este archivo debe incluir la `URL` de la API y la `KEY` de autenticación.
+
+Por favor, solicita estas credenciales antes de comenzar.
