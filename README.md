@@ -1,16 +1,7 @@
 ## Proyecto Software V Página Web
 
-<<<<<<< HEAD
 > [!IMPORTANT]
 > Este repositorio contiene el código base para nuestro proyecto. Si es tu primera vez trabajando con este repositorio, sigue los siguientes pasos para configurarlo.
-=======
-Aquí tienes el README actualizado con las instrucciones adicionales:
-
-```markdown
-# Proyecto API - [Nombre del Proyecto]
-
-Este repositorio contiene el código base para nuestro proyecto. Si es tu primera vez trabajando con este repositorio, sigue los siguientes pasos para configurarlo.
->>>>>>> parent of 7dedb94 (readme)
 
 ## Instalación
 
@@ -81,4 +72,3 @@ Si vas a trabajar con las APIs, necesitarás un archivo `.env` que contenga las 
 Por favor, solicita estas credenciales antes de comenzar.
 =======
 Con estas instrucciones, los colaboradores podrán sincronizar su fork con el repositorio principal y subir sus cambios de manera efectiva.
->>>>>>> parent of 7dedb94 (readme)
