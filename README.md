@@ -59,13 +59,12 @@ git push origin [rama-a-la-que-quieren-pushear]
 * Proporciona un título claro y descriptivo para tu PR.
 * En la descripción, explica los cambios que has hecho y por qué son necesarios.
 
-<<<<<<< HEAD
 ## Revisa y envía el PR
 * Asegúrate de revisar los cambios antes de enviarlo.
 *Una vez que estés satisfecho, haz clic en "Create Pull Request".
 
 > [!NOTE]
-## Configuración de las APIs
+> ## Configuración de las APIs
 
 Si vas a trabajar con las APIs, necesitarás un archivo `.env` que contenga las variables de entorno necesarias. Este archivo debe incluir la `URL` de la API y la `KEY` de autenticación.
 
