@@ -17,6 +17,12 @@
       "nombre": "John Doe",
       "correo": "johndoe@example.com",
       "password": "$2b$10$M1RFiAZ9vj4N9JPxR.3DOu6r0a9MaWLTpKKH1V3PFH33BLPVCvu.S"
+    },
+    {
+      "id": 4,
+      "nombre": "John Doe",
+      "correo": "johndoe@example.com",
+      "password": "$2b$10$jx7rWAFyKUFYdua3BNKKOuNhHjoBtaQ5/TX/igegiVaCNJ7Nqp7z2"
     }
   ]
 }
