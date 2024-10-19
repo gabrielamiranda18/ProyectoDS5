@@ -1,6 +1,6 @@
 import type { APIRoute } from "astro";
 import { supabase } from "../../lib/database";
-import { verifyPassword } from "../api/HPassword";  // Importamos la API de hash
+import { verifyPassword } from "../../lib/HPassword";  // Importamos la API de hash
 
 export const POST: APIRoute = async ({ request }) => {
   try {
