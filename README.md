@@ -1,58 +1,73 @@
-<<<<<<< HEAD
-# Astro Starter Kit: Basics
+## Proyecto Software V Página Web
 
-```sh
-npm create astro@latest -- --template basics
+> [!IMPORTANT]
+> Este repositorio contiene el código base para nuestro proyecto. Si es tu primera vez trabajando con este repositorio, sigue los siguientes pasos para configurarlo.
+
+## Instalación
+
+Si es la primera vez que clonas este repositorio, asegúrate de instalar todas las dependencias. Puedes usar `npm` o `pnpm` para hacerlo.
+
+### Con npm:
+```bash
+npm install
 ```
 
-[![Open in StackBlitz](https://developer.stackblitz.com/img/open_in_stackblitz.svg)](https://stackblitz.com/github/withastro/astro/tree/latest/examples/basics)
-[![Open with CodeSandbox](https://assets.codesandbox.io/github/button-edit-lime.svg)](https://codesandbox.io/p/sandbox/github/withastro/astro/tree/latest/examples/basics)
-[![Open in GitHub Codespaces](https://github.com/codespaces/badge.svg)](https://codespaces.new/withastro/astro?devcontainer_path=.devcontainer/basics/devcontainer.json)
-
-> 🧑‍🚀 **Seasoned astronaut?** Delete this file. Have fun!
-
-![just-the-basics](https://github.com/withastro/astro/assets/2244813/a0a5533c-a856-4198-8470-2d67b1d7c554)
-
-## 🚀 Project Structure
-
-Inside of your Astro project, you'll see the following folders and files:
-
-```text
-/
-├── public/
-│   └── favicon.svg
-├── src/
-│   ├── components/
-│   │   └── Card.astro
-│   ├── layouts/
-│   │   └── Layout.astro
-│   └── pages/
-│       └── index.astro
-└── package.json
+### Con pnpm:
+```bash
+pnpm install
 ```
 
-Astro looks for `.astro` or `.md` files in the `src/pages/` directory. Each page is exposed as a route based on its file name.
+## Sincronización con el repositorio principal
 
-There's nothing special about `src/components/`, but that's where we like to put any Astro/React/Vue/Svelte/Preact components.
+Si necesitas actualizar tu fork con los últimos cambios del repositorio principal, sigue estos pasos:
 
-Any static assets, like images, can be placed in the `public/` directory.
+1. Añade el repositorio original como remoto:
 
-## 🧞 Commands
+   ```bash
+   git remote add upstream https://github.com/Crei03/ProyectoDS5.git
+   ```
 
-All commands are run from the root of the project, from a terminal:
+2. Obtén los cambios del repositorio principal:
 
-| Command                   | Action                                           |
-| :------------------------ | :----------------------------------------------- |
-| `npm install`             | Installs dependencies                            |
-| `npm run dev`             | Starts local dev server at `localhost:4321`      |
-| `npm run build`           | Build your production site to `./dist/`          |
-| `npm run preview`         | Preview your build locally, before deploying     |
-| `npm run astro ...`       | Run CLI commands like `astro add`, `astro check` |
-| `npm run astro -- --help` | Get help using the Astro CLI                     |
+   ```bash
+   git fetch upstream
+   ```
 
-## 👀 Want to learn more?
+3. Fusiona los cambios de la rama `dev`:
 
-Feel free to check [our documentation](https://docs.astro.build) or jump into our [Discord server](https://astro.build/chat).
-=======
-#Proyecto Software V Página Web
->>>>>>> fd746a0a9583863545b75016a348adf770bf5943
+   ```bash
+   git merge upstream/dev
+   ```
+
+## Subir cambios a tu fork
+
+Para subir tus cambios a tu propio repositorio (fork), usa el siguiente comando:
+
+```bash
+git push origin [rama-a-la-que-quieren-pushear]
+```
+> [!CAUTION]
+> Asegurate que tu PR no tenga conflictos al momento del merge
+
+## Crear un Pull Request (PR)
+1. Navega a tu fork en GitHub: Ve a tu repositorio en GitHub.
+2. Crea un Pull Request:
+   * Verás un botón que dice "Contribute" o "Compare & pull request". Haz clic en este botón.
+   * Asegúrate de que la rama base sea dev del repositorio original (Crei03/ProyectoDS5) y que la rama de comparación sea la que contiene tus cambios en tu fork.
+
+## Añade un título y descripción
+* Proporciona un título claro y descriptivo para tu PR.
+* En la descripción, explica los cambios que has hecho y por qué son necesarios.
+
+## Revisa y envía el PR
+* Asegúrate de revisar los cambios antes de enviarlo.
+*Una vez que estés satisfecho, haz clic en "Create Pull Request".
+
+> [!NOTE]
+> ## Configuración de las APIs
+
+Si vas a trabajar con las APIs, necesitarás un archivo `.env` que contenga las variables de entorno necesarias. Este archivo debe incluir la `URL` de la API y la `KEY` de autenticación.
+
+Por favor, solicita estas credenciales antes de comenzar.
+
+Con estas instrucciones, los colaboradores podrán sincronizar su fork con el repositorio principal y subir sus cambios de manera efectiva.
