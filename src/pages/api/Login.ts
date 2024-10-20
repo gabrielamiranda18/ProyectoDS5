@@ -1,42 +1,39 @@
 import type { APIRoute } from "astro";
 import { supabase } from "../../lib/database";
+import { verifyPassword } from "../../lib/HPassword";  // Importamos la API de hash
 
 export const POST: APIRoute = async ({ request }) => {
   try {
-    // Se obtiene los datos del formulario
+    // Obtener los datos del formulario
     const formData = await request.formData();
-
-    // Se extraen los valores del formulario
     const correo = formData.get("email")?.toString() || "";
-    var password = formData.get("contraseña")?.toString() || "";
+    const password = formData.get("contraseña")?.toString() || "";
 
     if (!correo || !password) {
       return new Response("Faltan datos del formulario", { status: 400 });
     }
 
-    // Se verifica si el usuario existe y las credenciales son correctas
+    // Buscar al usuario en la base de datos por el correo
     const { data: usuario, error } = await supabase
       .from("usuarios")
       .select("*")
       .eq("correo", correo)
-      .eq("password", password)  
       .single();
 
-    // Si hay error o el usuario no se encuentra
     if (error || !usuario) {
       return new Response("Usuario o contraseña incorrectos", { status: 401 });
     }
 
-    // Variable que contiene la pagina correspondiente al usuario
-    var tipoUsuario = ""
+    // Llamar a la API de hash para verificar la contraseña
+    const passwordMatch = await verifyPassword(password, usuario.password);
 
-    if(correo.endsWith("@jselectronics.org")){
-      tipoUsuario = "/contacto" //Reemplazar con la pagina de administrador
-    }else{
-      tipoUsuario = "/Layout"
+    if (!passwordMatch) {
+      return new Response("Usuario o contraseña incorrectos", { status: 401 });
     }
 
-    //Verifica si es un trabajador o un cliente
+    // Redirigir al usuario según su rol
+    const tipoUsuario = correo.endsWith("@jselectronics.org") ? "/contacto" : "/Layout";
+
     return new Response(null, {
       status: 302,
       headers: {

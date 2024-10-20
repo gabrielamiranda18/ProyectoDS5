@@ -1,0 +1,204 @@
+---
+import ItemCarrito from '../components/ItemCarrito.astro';
+import Header from '../components/Header.astro';
+import Layout from '../layouts/Layout.astro';
+import RecommendedProducts from '../components/RecommendedProducts.astro';
+
+// Lista de productos de ejemplo
+const products = [
+  { id: 1, imageUrl: '/public/image/LenovoYoga7i.png', name: 'Lenovo Yoga 7i', price: 750, quantity: 1 },
+  { id: 2, imageUrl: '/image/HPStream14.png', name: 'HP Stream 14', price: 280, quantity: 1 },
+  { id: 3, imageUrl: '/image/LenovoIdeaPad3.png', name: 'Lenovo IdeaPad 3', price: 350, quantity: 2 }
+];
+
+const subtotal = 3180;
+const itbms = 222.60;
+const shippingCost = 20;
+const total = subtotal + itbms + shippingCost;
+---
+
+
+<Layout title="Carrito de la compra">
+  <Header />
+  <main class="cart-page">
+    <h1 class="cart-title">Tu carrito de compras</h1>
+
+    <!-- Encabezados de los productos -->
+    <div class="cart-headers">
+      <span>Producto</span>
+      <span>Precio</span>
+      <span>Cantidad</span>
+      <span>Total</span>
+    </div>
+
+    <div class="cart-content">
+      <!-- Sección de productos en el carrito -->
+      <div class="cart-items">
+        {products.map(product => (
+          <ItemCarrito key={product.id} product={product} />
+        ))}
+      </div>
+    </div>
+
+    <!-- Sección de recomendaciones y total del carrito, lado a lado -->
+    <div class="bottom-section">
+      <div class="recommended-products">
+        <RecommendedProducts />
+      </div>
+
+      <!-- Sección del resumen del carrito -->
+      <div class="cart-summary">
+        <h2>Total del carrito</h2>
+        <div class="summary-details">
+          <div class="summary-item">
+            <span>Subtotal</span>
+            <span>${subtotal}</span>
+          </div>
+          <div class="summary-item">
+            <span>ITBMS</span>
+            <span>${itbms}</span>
+          </div>
+          <div class="summary-item">
+            <span>Coste de envío</span>
+            <span>${shippingCost}</span>
+          </div>
+          <div class="summary-total">
+            <span>Total a pagar</span>
+            <span class="total-amount">${total.toFixed(2)}</span>
+          </div>
+          <div class="summary-actions">
+            <button class="btn-secondary">Seguir comprando</button>
+            <button class="btn-primary">Proceder a pagar</button>
+          </div>
+        </div>
+      </div>
+    </div>
+  </main>
+</Layout>
+
+<style>
+  .cart-page {
+    width: 100%;
+    max-width: 1200px;
+    margin: 0 auto;
+    padding: 2rem 1rem;
+  }
+
+  .cart-title {
+    text-align: center;
+    margin-bottom: 1.5rem;
+    font-size: 1.8rem;
+    font-weight: bold;
+  }
+
+  .cart-headers {
+    display: grid;
+    grid-template-columns: 0.5fr 2fr 1fr 1fr 1fr; 
+    background-color: #f8f9fa;
+    padding: 1rem;
+    border-top-left-radius: 8px;
+    border-top-right-radius: 8px;
+    font-weight: bold;
+    border-bottom: 2px solid #ddd;
+  }
+
+  .cart-headers span {
+    text-align: center;
+  }
+
+  .cart-content {
+    display: grid;
+    grid-template-columns: 1fr;
+    gap: 2rem;
+  }
+
+  .cart-items {
+    background: #fff;
+    border: 1px solid #ddd;
+    border-top: none;
+    border-radius: 0 0 8px 8px;
+    overflow-y: auto;
+    max-height: 400px;
+  }
+
+  .bottom-section {
+    display: grid;
+    grid-template-columns: 2fr 1fr;
+    gap: 2rem;
+    margin-top: 2rem;
+  }
+
+  .cart-summary {
+    background: #fff;
+    border: 1px solid #ddd;
+    padding: 1.5rem;
+    border-radius: 8px;
+  }
+
+  .product-list {
+    display: flex;
+    gap: 1.5rem;
+    justify-content: space-between;
+  }
+
+  .recommended-product {
+    min-width: 150px;
+    text-align: center;
+  }
+
+  .recommended-image {
+    width: 100%;
+    height: auto;
+    max-height: 150px;
+    object-fit: contain;
+  }
+
+  .summary-details {
+    display: flex;
+    flex-direction: column;
+    gap: 0.5rem;
+  }
+
+  .summary-total {
+    display: flex;
+    justify-content: space-between;
+    font-size: 1.2rem;
+    font-weight: bold;
+    color: #006d77;
+    border-top: 1px solid #ddd;
+    padding-top: 0.5rem;
+  }
+
+  .summary-actions {
+    display: flex;
+    gap: 1rem;
+    margin-top: 1.5rem;
+  }
+
+  .btn-primary, .btn-secondary {
+    padding: 0.75rem 1.25rem;
+    border: 2px solid transparent;
+    border-radius: 8px;
+    cursor: pointer;
+    font-size: 1rem;
+    width: 100%;
+    text-align: center;
+  }
+
+  .btn-primary {
+    background-color: #2CA6A4;
+    color: #fff;
+  }
+
+  .btn-secondary {
+    background-color: #fff;
+    color: #333;
+    border: 2px solid #2CA6A4;
+  }
+
+  .total-amount {
+    font-size: 1.5rem;
+    font-weight: bold;
+    color: #006d77;
+  }
+</style>

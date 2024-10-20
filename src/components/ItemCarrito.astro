@@ -1,0 +1,83 @@
+---
+// Props que recibe el componente ItemCarrito
+const { product } = Astro.props;
+const { imageUrl, name, price, quantity } = product;
+
+
+// Calcular el total basado en la cantidad y el precio
+const total = price * quantity;
+---
+
+<div class="cart-item">
+  <button class="btn-remove"><svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-square-rounded-x" width="44" height="44" viewBox="0 0 24 24" stroke-width="1.5" stroke="#2c3e50" fill="none" stroke-linecap="round" stroke-linejoin="round">
+    <path stroke="none" d="M0 0h24v24H0z" fill="none"/>
+    <path d="M10 10l4 4m0 -4l-4 4" />
+    <path d="M12 3c7.2 0 9 1.8 9 9s-1.8 9 -9 9s-9 -1.8 -9 -9s1.8 -9 9 -9z" />
+  </svg></button>
+  <div class="product-info">
+    <img src={imageUrl} alt={`Imagen de ${name}`} class="product-image" />
+    <p class="product-name">{name}</p>
+  </div>
+  <div class="product-price">
+    <span class="price">${price}</span>
+  </div>
+  <div class="product-quantity">
+    <input type="number" value={quantity} min="1" />
+  </div>
+  <div class="product-total">
+    <span class="total-amount">${total}</span>
+  </div>
+</div>
+
+<style>
+ .cart-item {
+  display: grid;
+  grid-template-columns: 0.5fr 2fr 1fr 1fr 1fr; /* Asegura la coincidencia con los encabezados */
+  align-items: center;
+  padding: 1rem;
+  border-bottom: 1px solid #ddd;
+}
+
+.btn-remove {
+  background: none;
+  border: none;
+  color: #d9534f;
+  font-size: 1.2rem;
+  cursor: pointer;
+  padding: 0.5rem;
+}
+
+.product-info {
+  display: flex;
+  align-items: center;
+}
+
+.product-image {
+  width: 60px;
+  height: auto;
+  border-radius: 4px;
+  margin-right: 1rem;
+}
+
+.product-name {
+  margin: 0;
+  font-size: 1rem;
+  color: #333;
+}
+
+.product-price, .product-total {
+  text-align: center;
+  color: #007bff;
+}
+
+.product-quantity {
+  text-align: center;
+}
+
+.product-quantity input[type="number"] {
+  width: 60px;
+  padding: 5px;
+  text-align: center;
+}
+
+</style>
