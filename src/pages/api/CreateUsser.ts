@@ -40,10 +40,20 @@ export const POST: APIRoute = async ({ request, redirect }) => {
     }
 
     // Redirigir a la página de inicio de sesión después de crear el usuario
-    return redirect("/login");
+    return new Response(null, {
+      status: 302,
+      headers: {
+      Location: "/login",
+      },
+    });
 
   } catch (err) {
     console.error("Error en la API de creación de usuario:", err);
-    return new Response("/CrearCuenta", { status: 500 });
+    return new Response(null, {
+      status: 302,
+      headers: {
+        Location: "/CrearCuenta",
+      },
+    });
   }
 };

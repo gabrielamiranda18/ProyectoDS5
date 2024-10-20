@@ -32,7 +32,7 @@ export const POST: APIRoute = async ({ request }) => {
     }
 
     // Redirigir al usuario según su rol
-    let tipoUsuario = correo.endsWith("@jselectronics.org") ? "/contacto" : "/Layout";
+    const tipoUsuario = correo.endsWith("@jselectronics.org") ? "/contacto" : "/Layout";
 
     return new Response(null, {
       status: 302,
