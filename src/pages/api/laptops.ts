@@ -6,8 +6,9 @@ export const GET: APIRoute = async () => {
 
         const { data, error} = await supabase
         .from("laptops")
-        .select("id,modelo,precio,en_stock,color,marca,procesador,ram,almacenamiento,tarjeta_grafica,anio")
+        .select("id,modelo,precio,en_stock,color,marca,procesador,ram,almacenamiento,tarjeta_grafica,anio,imagen")
 
+        console.log(data)
         if(error){
             return new Response("Error al obtener los datos", {status: 500});
         } else {
