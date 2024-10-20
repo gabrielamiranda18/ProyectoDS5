@@ -1,0 +1,66 @@
+---
+// Archivo: RecommendedProducts.astro
+const recommendedProducts = [
+  { id: 1, imageUrl: '/image/DellInspiron14.png', name: 'Dell Inspiron 14 7000', price: 750 },
+  { id: 2, imageUrl: '/image/AsusVivoBook15.png', name: 'Asus Vivobook', price: 700 },
+  { id: 3, imageUrl: '/image/LenovoIdeaPad3_2.png', name: 'Lenovo IdeaPad 3', price: 350 }
+];
+---
+
+<div class="recommended-products">
+  <h2>También podrían gustarte</h2>
+  <div class="product-list">
+    {recommendedProducts.map(product => (
+      <div  class="recommended-product">
+        <img src={product.imageUrl} alt={product.name} class="recommended-image" />
+        <p class="recommended-name">{product.name}</p>
+        <p class="recommended-price">${product.price}</p>
+      </div>
+    ))}
+  </div>
+</div>
+
+<style>
+  .recommended-products {
+    background: #fff;
+    border: 1px solid #ddd;
+    padding: 1.5rem;
+    border-radius: 8px;
+    font-family: Arial, sans-serif;
+  }
+  .product-list {
+    display: flex;
+    gap: 1rem;
+    justify-content: space-between;
+    align-items: stretch;
+  }
+  .recommended-product {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    text-align: center;
+    flex: 1;
+    min-width: 0;
+    max-width: calc(33.333% - 0.67rem);
+  }
+  .recommended-image {
+    width: 100%;
+    height: 150px;
+    object-fit: contain;
+    margin-bottom: 0.5rem;
+  }
+  .recommended-name {
+    font-size: 0.9rem;
+    margin: 0.5rem 0;
+    line-height: 1.2;
+    height: 2.4em;
+    overflow: hidden;
+    display: -webkit-box;
+    -webkit-line-clamp: 2;
+    -webkit-box-orient: vertical;
+  }
+  .recommended-price {
+    font-weight: bold;
+    margin: 0;
+  }
+</style>
