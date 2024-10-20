@@ -120,74 +120,6 @@ import Layout from "../layouts/Layout.astro";
                             <span class="price2">$1200.00</span>
                         </div>
                     </div>
-
-                    <!-- Segunda variación -->
-                    <div>
-                        <!-- Fila de especificaciones -->
-                        <div class="variant-specs">
-                            <!-- Columna 1: Procesador y Almacenamiento -->
-                            <div class="column">
-                                <!-- Procesador -->
-                                <div class="spec-item">
-                                    <h4>Procesador</h4>
-                                    <div class="content">
-                                        <img
-                                            src="icono_procesador.png"
-                                            alt="Procesador"
-                                            class="icon"
-                                        />
-                                        <span>Apple M2</span>
-                                    </div>
-                                </div>
-                                <!-- Almacenamiento -->
-                                <div class="spec-item">
-                                    <h4>Almacenamiento</h4>
-                                    <div class="content">
-                                        <img
-                                            src="icono_almacenamiento.png"
-                                            alt="Almacenamiento"
-                                            class="icon"
-                                        />
-                                        <span>512 GB SSD</span>
-                                    </div>
-                                </div>
-                            </div>
-
-                            <!-- Columna 2: Memoria RAM y Pantalla -->
-                            <div class="column">
-                                <!-- Memoria RAM -->
-                                <div class="spec-item">
-                                    <h4>Memoria RAM</h4>
-                                    <div class="content">
-                                        <img
-                                            src="icono_ram.png"
-                                            alt="Memoria RAM"
-                                            class="icon"
-                                        />
-                                        <span>16 GB</span>
-                                    </div>
-                                </div>
-                                <!-- Pantalla -->
-                                <div class="spec-item">
-                                    <h4>Pantalla</h4>
-                                    <div class="content">
-                                        <img
-                                            src="icono_pantalla.png"
-                                            alt="Pantalla"
-                                            class="icon"
-                                        />
-                                        <span>13.6" Liquid Retina</span>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-
-                        <!-- Fila de stock y precio -->
-                        <div class="variant-stock">
-                            <span>En stock: 6</span>
-                            <span class="price2">$1350.00</span>
-                        </div>
-                    </div>
                 </div>
             </div>
 
@@ -313,9 +245,15 @@ import Layout from "../layouts/Layout.astro";
                         </div>
                     </li>
                 </ul>
-                <button class="write-review">Escribe una reseña del vendedor</button>
-    
-                <div id="review-form" style="display: none; margin-top: 10px;" class="review-section">
+                <button class="write-review"
+                    >Escribe una reseña del vendedor</button
+                >
+
+                <div
+                    id="review-form"
+                    style="display: none; margin-top: 10px;"
+                    class="review-section"
+                >
                     <div class="rating-stars" id="rating">
                         <span class="star" data-value="1">★</span>
                         <span class="star" data-value="2">★</span>
@@ -323,15 +261,18 @@ import Layout from "../layouts/Layout.astro";
                         <span class="star" data-value="4">★</span>
                         <span class="star" data-value="5">★</span>
                     </div>
-                    <textarea id="review-text" placeholder="Escribe tu reseña aquí..." required></textarea>
+                    <textarea
+                        id="review-text"
+                        placeholder="Escribe tu reseña aquí..."
+                        required></textarea>
                     <button id="submit-review">Enviar Reseña</button>
                 </div>
-    
+
                 <div class="review-list" id="reviews-list">
                     <h4>Reseñas:</h4>
                 </div>
             </div>
-    
+
             <div class="reviews-right">
                 <h3>Reseña mejor valorada</h3>
                 <div class="top-review">
@@ -360,79 +301,98 @@ import Layout from "../layouts/Layout.astro";
 
     <script>
         document.addEventListener("DOMContentLoaded", function () {
-            const stars = document.querySelectorAll('.star');
-            const writeReviewButton = document.querySelector('.write-review');
-            const reviewForm = document.getElementById('review-form');
-            const submitReviewButton = document.getElementById('submit-review');
-            const reviewsList = document.getElementById('reviews-list');
+            const stars = document.querySelectorAll(".star");
+            const writeReviewButton = document.querySelector(".write-review");
+            const reviewForm = document.getElementById("review-form");
+            const submitReviewButton = document.getElementById("submit-review");
+            const reviewsList = document.getElementById("reviews-list");
             let ratingValue = 0;
     
             // Verifica que los elementos existan
             if (writeReviewButton) {
                 // Función para mostrar el formulario de reseñas
-                writeReviewButton.addEventListener('click', () => {
+                writeReviewButton.addEventListener("click", () => {
                     if (reviewForm) {
-                        reviewForm.style.display = reviewForm.style.display === 'none' ? 'block' : 'none';
+                        reviewForm.style.display =
+                            reviewForm.style.display === "none"
+                                ? "block"
+                                : "none";
                         resetStars(); // Resetea las estrellas cada vez que se muestra el formulario
                     }
                 });
             }
     
             // Agregar funcionalidad a las estrellas
-            stars.forEach(star => {
-                star.addEventListener('click', () => {
-                    const value = star.getAttribute('data-value');
-                    ratingValue = value ? Number(value) : 0; // Convertir a número o 0 si null
+            stars.forEach((star, index) => {
+                star.addEventListener("click", () => {
+                    ratingValue = index + 1; // El índice es 0-based, así que agregamos 1
                     resetStars();
                     highlightStars(ratingValue);
+                });
+    
+                // Llenar estrellas al pasar el ratón
+                star.addEventListener("mouseenter", () => {
+                    resetStars(); // Resetea las estrellas antes de llenar
+                    highlightStars(index + 1); // Llenar hasta la estrella actual
+                });
+    
+                // Resetear las estrellas al salir el ratón
+                star.addEventListener("mouseleave", () => {
+                    resetStars(); // Restablece las estrellas
+                    highlightStars(ratingValue); // Rellena según la calificación actual
                 });
             });
     
             function resetStars() {
-                stars.forEach(star => {
-                    star.classList.remove('selected');
+                stars.forEach((star) => {
+                    star.classList.remove("selected");
                 });
             }
     
-            // Especificar el tipo de parámetro 'value'
-            function highlightStars(value: number) {
+            function highlightStars(value: number) { // Especificar tipo de parámetro
                 for (let i = 0; i < value; i++) {
-                    stars[i].classList.add('selected');
+                    stars[i].classList.add("selected");
                 }
             }
     
             // Manejar el envío del formulario
             if (submitReviewButton) {
-                submitReviewButton.addEventListener('click', (e) => {
+                submitReviewButton.addEventListener("click", (e) => {
                     e.preventDefault();
-                    
+    
                     // Asegurarse de que reviewTextElement no sea null y que sea del tipo correcto
-                    const reviewTextElement = document.getElementById('review-text') as HTMLTextAreaElement; // Afirmar el tipo
-                    
-                    const reviewText = reviewTextElement ? reviewTextElement.value.trim() : ''; // Ahora 'value' es reconocido
-                    
+                    const reviewTextElement = document.getElementById(
+                        "review-text",
+                    ) as HTMLTextAreaElement; // Afirmar el tipo
+    
+                    const reviewText = reviewTextElement
+                        ? reviewTextElement.value.trim() // Ahora 'value' es reconocido
+                        : ""; 
+    
                     if (ratingValue > 0 && reviewText) {
                         addReview(ratingValue, reviewText);
                         if (reviewTextElement) {
-                            reviewTextElement.value = ''; // Limpiar el textarea
+                            reviewTextElement.value = ""; // Limpiar el textarea
                         }
                         ratingValue = 0; // Resetear la puntuación
                         resetStars(); // Resetear estrellas
                         if (reviewForm) {
-                            reviewForm.style.display = 'none'; // Ocultar el formulario después de enviar
+                            reviewForm.style.display = "none"; // Ocultar el formulario después de enviar
                         }
                     } else {
-                        alert('Por favor, selecciona una puntuación y escribe una reseña.');
+                        alert(
+                            "Por favor, selecciona una puntuación y escribe una reseña.",
+                        );
                     }
                 });
             }
     
             // Función para agregar reseña a la lista
-            function addReview(rating: number, text: string) {
-                const reviewItem = document.createElement('div');
-                reviewItem.classList.add('review-item');
+            function addReview(rating: number, text: string) { // Especificar tipos de parámetros
+                const reviewItem = document.createElement("div");
+                reviewItem.classList.add("review-item");
                 reviewItem.innerHTML = `
-                    <div class="rating-stars">${'★'.repeat(rating)}${'☆'.repeat(5 - rating)}</div>
+                    <div class="rating-stars">${"★".repeat(rating)}${"☆".repeat(5 - rating)}</div>
                     <p>${text}</p>
                 `;
                 if (reviewsList) {
@@ -441,6 +401,8 @@ import Layout from "../layouts/Layout.astro";
             }
         });
     </script>
+    
+    
     <style>
         .product-page {
             width: 90%;
@@ -867,11 +829,10 @@ import Layout from "../layouts/Layout.astro";
         .star {
             font-size: 30px;
             color: lightgray;
+            cursor: pointer;
         }
 
-        .star.selected,
-        .star:hover,
-        .star:hover ~ .star {
+        .star.selected {
             color: gold;
         }
 
@@ -937,5 +898,4 @@ import Layout from "../layouts/Layout.astro";
             }
         }
     </style>
-
 </Layout>
