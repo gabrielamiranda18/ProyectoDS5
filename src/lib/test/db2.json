@@ -1,0 +1,30 @@
+{
+  "tarjetas": [
+    {
+      "id": 1,
+      "token": "tok_82ec7d819a65c94b011433753f7abf1d",
+      "hashedLast4": "$2b$10$EAc9f7AasLlwrERmjWomhOMA8fZcsX5SMzPf80iOl1Dainj.Cq.Ri",
+      "fechaExpiracion": "0c682599a6",
+      "nombre": "Juan Pérez",
+      "tipo": "Visa"
+    },
+    {
+      "id": 2,
+      "token": "tok_cfd7b48bf32eb83d5e63ccc0a3aaba0f",
+      "hashedLast4": "$2b$10$i4qwFsjHKSSr4/lYZLwPGuDv60YPo47DYFN7INjR43u0aCqREJiAO",
+      "fechaExpiracion": "0c682599a6",
+      "nombre": "Juan Pérez",
+      "tipo": "Visa"
+    },
+    {
+      "id": 3,
+      "token": "tok_4d20e6ae89a6cbb711114a1b439a41c6",
+      "hashedLast4": "$2b$10$wkRIGh6pORrfSBxaPdfbSeRZauu6scxINxgJM18.5pud5nzQrPnAO",
+      "fechaExpiracion": "bd39681fa9",
+      "iv": "9e4534ea22073db3fc9a91308eb7784e",
+      "clave": "d3ce502ff51b7b0b805eed93c9266d9dd9ce58e1a5ed7da1adaad4a04dbb14bb",
+      "nombre": "Juan Pérez",
+      "tipo": "Visa"
+    }
+  ]
+}

@@ -11,17 +11,18 @@ const supabaseAnonKey = process.env.SUPABASE_ANON_KEY;
 const supabase = createClient(supabaseUrl, supabaseAnonKey);
 
 const createUser = {
-  nombre: "Juan",
-  apellido: "Pérez",
+  nombre: "Daniel",
+  apellido: "Nie",
   direccion: "Calle 123",
   celular: "1234567890",
-  correo: "juan@example.com",
-  password: "prueba123",
+  correo: "daniel@gmail.com",
+  password: "contrasena 123",
   tipo_usuario: "Cliente"
 };
 
 async function createAdmin() {
   try {
+  
     // Encriptar la contraseña
     const hashedPassword = await bcrypt.hash(createUser.password, 10);
 
@@ -46,12 +47,12 @@ async function createAdmin() {
     console.log("Admin creado correctamente:", insertData);
 
     // Realizar una consulta para obtener todos los usuarios
-    const { data: users, error: fetchError } = await supabase
+    const { data: users, error: fetchErrorAll } = await supabase
       .from("usuarios")
       .select("*");
 
-    if (fetchError) {
-      console.error("Error al obtener los usuarios:", fetchError.message);
+    if (fetchErrorAll) {
+      console.error("Error al obtener los usuarios:", fetchErrorAll.message);
       return;
     }
 
