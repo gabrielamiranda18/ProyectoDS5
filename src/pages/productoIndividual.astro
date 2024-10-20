@@ -1,0 +1,208 @@
+---
+// Importar los componentes de Header y Layout
+import Header from "../components/Header.astro";
+import Layout from "../layouts/Layout.astro";
+---
+
+<Layout title="MacBook Air M2 2023">
+    <Header />
+
+    <main class="product-page">
+        <section class="breadcrumb">
+            <p>
+                <a href="#" class="breadcrumb-link">Inicio</a> &gt;
+                <a href="#" class="breadcrumb-link">Productos</a> &gt;
+                <span class="breadcrumb-current">Laptops Gama Alta</span>
+            </p>
+        </section>
+
+        <section class="product-container">
+            <!-- Sección de imágenes -->
+            <div class="product-images">
+                <div class="thumbnail-images">
+                    <img src="/MacBook2.png" alt="Thumbnail 1" />
+                    <img src="/MacBook3.png" alt="Thumbnail 2" />
+                </div>
+                <img
+                    src="/MacBook1.png"
+                    alt="MacBook Air M2"
+                    class="main-image"
+                />
+            </div>
+
+            <!-- Detalles del producto -->
+            <div class="product-details">
+                <h1>Apple MacBook Air M2 2023</h1>
+                <p class="price">$1200.00</p>
+                <p>Envío gratis</p>
+
+                <!-- Botón para añadir al carrito -->
+                <button class="add-to-cart">Añadir al carrito</button>
+
+                <!-- Métodos de pago -->
+                <div class="payment-methods">
+                    <p>Métodos de pagos aceptados:</p>
+                    <img src="/visa-Logo.png" alt="Visa" />
+                    <img src="/clave-logo.png" alt="Clave" />
+                    <img src="/mastercard-logo.png" alt="MasterCard" />
+                    <img src="/yappy-logo.png" alt="Yappy" />
+                </div>
+
+                <!-- Variaciones del producto -->
+                <div class="product-variants">
+                    <div class="variant">
+                        <p><strong>Procesador:</strong> Apple M2</p>
+                        <p><strong>Memoria RAM:</strong> 8 GB</p>
+                        <p><strong>Almacenamiento:</strong> 256 GB SSD</p>
+                        <p><strong>Pantalla:</strong> 13.6" Liquid Retina</p>
+                        <p>En stock: 10</p>
+                        <p class="price">$1200.00</p>
+                    </div>
+                    <div class="variant">
+                        <p><strong>Procesador:</strong> Apple M2</p>
+                        <p><strong>Memoria RAM:</strong> 16 GB</p>
+                        <p><strong>Almacenamiento:</strong> 512 GB SSD</p>
+                        <p><strong>Pantalla:</strong> 13.6" Liquid Retina</p>
+                        <p>En stock: 5</p>
+                        <p class="price">$1350.00</p>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Descripción del producto -->
+        <section class="product-description">
+            <h2>Acerca de este artículo</h2>
+            <p>
+                Laptop ultradelgada con gran rendimiento y duración de batería.
+            </p>
+        </section>
+    </main>
+</Layout>
+
+<style>
+    .product-page {
+        width: 90%;
+        margin: 0 auto;
+        font-family: Arial, sans-serif;
+    }
+
+    .breadcrumb {
+        font-size: 16px;
+        color: #757575; /* Color gris claro */
+    }
+
+    .breadcrumb-link {
+        text-decoration: none;
+        color: #b3b3b3; /* Color gris más claro */
+        font-weight: normal;
+        margin-right: 5px;
+    }
+
+    .breadcrumb-link:hover {
+        color: #000; /* Cambia a negro cuando pasas el mouse */
+    }
+
+    .breadcrumb-current {
+        font-weight: bold;
+        color: #333; /* Color gris oscuro */
+        margin-left: 5px;
+    }
+
+    .breadcrumb p {
+        display: flex;
+        gap: 5px; /* Ajusta el espacio entre los elementos */
+    }
+
+    .breadcrumb p > span,
+    .breadcrumb p > a {
+        display: inline-block;
+    }
+
+    .product-container {
+        display: flex;
+        gap: 20px;
+        margin-top: 10px;
+    }
+
+    .product-images {
+        display: flex;
+        align-items: center; /* Centra las imágenes verticalmente */
+        margin-top: -500px; /* Ajusta este valor para reducir el espacio según sea necesario */
+    }
+
+    .main-image {
+        width: 100%;
+        height: auto;
+    }
+
+    .thumbnail-images {
+        display: flex;
+        flex-direction: column; /* Coloca las miniaturas en columna */
+        margin-right: 10px; /* Espacio entre miniaturas y la imagen principal */
+    }
+
+    .thumbnail-images img {
+        width: 100px;
+        height: auto;
+        cursor: pointer;
+        margin-bottom: 10px; /* Espacio entre las miniaturas */
+    }
+
+    .product-details {
+        flex: 1;
+    }
+
+    .product-details h1 {
+        font-size: 24px;
+        margin-bottom: 10px;
+        border-bottom: 1px solid #ddd; /* Línea divisora */
+        padding-bottom: 30px; /* Espacio entre el texto y la línea */
+    }
+
+    .price {
+        font-size: 30px;
+        color: #333;
+        margin-bottom: 15px;
+    }
+
+    .add-to-cart {
+        background-color: #0047ab;
+        color: white;
+        padding: 10px 20px;
+        border: none;
+        cursor: pointer;
+        font-size: 16px;
+        margin-bottom: 20px;
+        border-radius: 5px; /* Cambia este valor según tu preferencia */
+        width: 210px;
+    }
+
+    .payment-methods img {
+        width: 50px;
+        margin-right: 10px;
+    }
+
+    .product-variants {
+        border: 1px solid #ddd;
+        padding: 15px;
+        margin-top: 20px;
+    }
+
+    .product-variants .variant {
+        margin-bottom: 20px;
+    }
+
+    .product-description {
+        margin-top: 40px;
+    }
+
+    .product-description h2 {
+        font-size: 18px;
+        margin-bottom: 10px;
+    }
+
+    .product-description p {
+        font-size: 16px;
+    }
+</style>
