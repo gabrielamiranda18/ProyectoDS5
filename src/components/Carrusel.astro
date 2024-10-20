@@ -1,0 +1,179 @@
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <title>Carrusel Automático</title>
+</head>
+<body>
+    <div class="slider-box">
+        <ul class="carrusel">
+            <li>
+                <div class="rectangulo1"></div>
+                <h1>MacBook</h1>
+                <h2>Air</h2>
+                <p id="text1">Combina diseño ultrafino y rendimiento impresionante. Crea, trabaja y estudia sin límites.</p>
+                <img id="Imagen_1" src="/macbook air m2.png" alt="Imagen_1" width="820" height="750">
+                <button class="boton" type="button">Comprar Ahora</button>
+            </li>
+            <li>
+                <div class="rectangulo2"></div>
+                <h1>Huawei MateBook</h1>
+                <h2>XPro</h2>
+                <p id="text2">Vive la calidad y el rendimiento de la Huawei MateBook X Pro, diseñada para aquellos que no se conforman con menos.</p>
+                <img id="Imagen_2" src="/Huawei MateBook XPro.png" alt="Imagen_2" width="620" height="570">
+                <button class="boton" type="button">Comprar Ahora</button>
+            </li>
+            <li>
+                <div class="rectangulo3"></div>
+                <h1>Dell</h1>
+                <h2>Inspion 15</h2>
+                <p id="text3">Ideal para tareas diarias con un equilibrio perfecto entre funcionalidad y precio.</p>
+                <img id="Imagen_3" src="/Dell.png" alt="Imagen_2" width="620" height="450">
+                <button class="boton" type="button">Comprar Ahora</button>
+            </li>
+        </ul>
+    </div>
+    <script>
+        let currentIndex = 0; // Índice del carrusel
+        const slides = document.querySelectorAll('.carrusel li'); // Seleccionar todos los elementos del carrusel
+        const totalSlides = slides.length; // Total de elementos en el carrusel
+
+        function showSlide(index) {
+            const offset = -index * 100; // Calcular el desplazamiento
+            const carrusel = document.querySelector('.carrusel') as HTMLElement;
+            carrusel.style.transform = `translateX(${offset}%)`; // Aplicar el desplazamiento
+        }
+
+        function nextSlide() {
+            currentIndex = (currentIndex + 1) % totalSlides; // Incrementar el índice
+            showSlide(currentIndex); // Mostrar el siguiente slide
+        }
+
+        // Cambiar de slide cada 5 segundos
+        setInterval(nextSlide, 5000);
+
+        // Mostrar el primer slide al cargar
+        showSlide(currentIndex);
+    </script>
+</body>
+</html>
+<style>
+    @import url('https://fonts.googleapis.com/css2?family=Inter:ital,opsz,wght@0,14..32,100..900;1,14..32,100..900&display=swap');
+
+    * {
+        margin: 0;
+        padding: 0;
+        box-sizing: border-box;
+        font-family: "Inter", sans-serif;
+    }
+
+    .slider-box {
+        width: 100%;
+        overflow: hidden; /* Para ocultar elementos fuera del carrusel */
+        position: relative;
+        height: 80vh; /* Ajusta la altura según tus necesidades */
+    }
+
+    .slider-box ul {
+        display: flex;
+        transition: transform 1s ease-in-out; /* Efecto de transición */
+        will-change: transform; /* Para optimizar la animación */
+        padding: 0; /* Para eliminar el padding de la lista */
+        height: 100%; /* Asegura que la lista ocupe toda la altura */
+    }
+
+    .slider-box li {
+        min-width: 100%; /* Cada elemento ocupa el 100% del contenedor */
+        height: 100%; /* Ajusta la altura para ocupar todo el slider */
+        position: relative; /* Necesario para el posicionamiento de elementos internos */
+    }
+
+    .slider-box .rectangulo1,
+    .slider-box .rectangulo2,
+    .slider-box .rectangulo3 {
+        position: absolute;
+        width: 100%; /* Asegura que los rectángulos ocupen todo el ancho */
+        height: 100%; /* Asegura que los rectángulos ocupen toda la altura */
+        top: 0; /* Asegura que comiencen desde la parte superior */
+        left: 0; /* Asegura que comiencen desde la parte izquierda */
+        z-index: 1; /* Asegura que los rectángulos estén detrás del contenido */
+    }
+
+    .slider-box .rectangulo1 {
+        background-image: linear-gradient(to right, rgb(2, 2, 62),rgb(0, 0, 24));
+    }
+
+    .slider-box .rectangulo2 {
+        background-image: linear-gradient(to right, rgb(4, 71, 88),rgb(1, 21, 27));
+    }
+
+    .slider-box .rectangulo3 {
+        background-image: linear-gradient(to right, rgb(68, 5, 78),rgb(25, 1, 29));
+    }
+
+    .slider-box h1,
+    .slider-box h2,
+    .slider-box p {
+        position: absolute;
+        color: white;
+        z-index: 2; /* Asegura que el texto esté por encima del rectángulo */
+        margin-left: 10vw; /* Margen desde la izquierda */
+    }
+
+    .slider-box h1 {
+        font-size: 10vh;
+        margin-top: 20vh; /* Ajusta la posición vertical */
+        font-weight: 100;
+    }
+
+    .slider-box h2 {
+        font-size: 10vh;
+        margin-top: 30vh; /* Ajusta la posición vertical */
+    }
+
+    .slider-box p {
+        font-size: 100%;
+        margin-top: 42vh; /* Ajusta la posición vertical */
+        margin-right: 50vw;
+    }
+
+    .slider-box .boton {
+        position: absolute;
+        padding: 1%;
+        cursor: pointer;
+        border-radius: 1vh;
+        border: 0.1vh solid white;
+        color: white;
+        background-color: transparent;
+        font-weight: 500;
+        white-space: nowrap;
+        transition: background-color 0.1s, color 0.1s;
+        z-index: 2; /* Asegura que el botón esté por encima del rectángulo */
+        margin-left: 10vw; /* Margen desde la izquierda */
+        margin-top: 50vh; /* Posición vertical */
+    }
+
+    .slider-box .boton:hover {
+        background-color: white;
+        color: black;
+    }
+
+    .slider-box img {
+        position: absolute;
+        z-index: 3; /* Asegura que la imagen esté por encima del rectángulo */
+    }
+
+    .slider-box #Imagen_1 {
+        margin-top: -20vh;
+        margin-left: 40vw;
+    }
+
+    .slider-box #Imagen_2 {
+        margin-top: -5vh;
+        margin-left: 50vw;
+    }
+
+    .slider-box #Imagen_3 {
+        margin-top: 4vh;
+        margin-left: 50vw;
+    }
+</style>
