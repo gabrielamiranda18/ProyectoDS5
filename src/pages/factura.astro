@@ -1,0 +1,204 @@
+---
+// src/pages/factura.astro
+import Layout from '../layouts/Layout.astro';
+import Header from '../components/Header.astro';
+
+// Simulación de datos
+const invoiceData = {
+  number: '000000000001',
+  date: '1/9/2024',
+  paymentMethod: 'Tarjeta Clave',
+  items: [
+    { name: 'Lenovo Yoga 7i', quantity: 1, price: 750 },
+    { name: 'HP Stream 14', quantity: 1, price: 280 },
+    { name: 'HP Pavilion x360', quantity: 1, price: 650 },
+    { name: 'Huawei MateBook X Pro', quantity: 1, price: 1500 },
+  ],
+  itbms: 222.60,
+  shippingCost: 20,
+};
+
+const subtotal = invoiceData.items.reduce((sum, item) => sum + item.price * item.quantity, 0);
+const total = subtotal + invoiceData.itbms + invoiceData.shippingCost;
+---
+
+<Layout title="Factura">
+  <Header />
+  <main class="container">
+    <div class="invoice-header">
+      <h1>Factura</h1>
+      <div class="confirmation-image">
+        <img src="/image/GraciasCompra.png" alt="Compra exitosa" style="width: 300px; height: auto;" />
+      </div>
+      <div class="invoice-message">
+        <h2>¡Felicidades por su compra!</h2>
+        <p>Detalles de factura</p>
+      </div>
+    </div>
+
+    <div class="invoice-details">
+      <div class="detail-row">
+        <span>Número de factura</span>
+        <span>No. {invoiceData.number}</span>
+      </div>
+      <div class="detail-row">
+        <span>Fecha de pedido</span>
+        <span>{invoiceData.date}</span>
+      </div>
+      <div class="detail-row">
+        <span>Método de pago</span>
+        <span>{invoiceData.paymentMethod}</span>
+      </div>
+    </div>
+
+    <table class="invoice-table">
+        <thead>
+          <tr class="border-b">
+            <th>Producto</th>
+            <th>Cantidad</th>
+            <th>Precio</th>
+          </tr>
+        </thead>
+        <tbody>
+          {invoiceData.items.map((item) => (
+            <tr class="border-b">
+              <td>{item.name}</td>
+              <td>x{item.quantity}</td>
+              <td>${item.price}</td>
+            </tr>
+          ))}
+        </tbody>
+      </table>
+      
+    <div class="totals">
+      <div class="totals-row">
+        <span>ITBMS</span>
+        <span>${invoiceData.itbms.toFixed(2)}</span>
+      </div>
+      <div class="totals-row">
+        <span>Coste de envío</span>
+        <span>${invoiceData.shippingCost.toFixed(2)}</span>
+      </div>
+      <div class="totals-row total">
+        <span>Total</span>
+        <span>${total.toFixed(2)}</span>
+      </div>
+    </div>
+
+    <div class="continue-button">
+      <a href="#" class="btn-continue">Continuar</a>
+    </div>
+  </main>
+</Layout>
+
+<style>
+  .container {
+    max-width: 800px;
+    margin: 0 auto;
+    padding: 2rem 1rem;
+  }
+
+  .invoice-header {
+    text-align: center;
+    margin-bottom: 2rem;
+  }
+
+  .invoice-header h1 {
+    font-size: 2.5rem;
+    font-weight: bold;
+  }
+
+  .confirmation-image img {
+    width: 150px;
+    margin: 1rem auto;
+  }
+
+  .invoice-message h2 {
+    font-size: 1.8rem;
+    font-weight: bold;
+  }
+
+  .invoice-message p {
+    color: #666;
+    font-size: 1rem;
+  }
+
+  .invoice-details {
+    background: #fff;
+    padding: 1.5rem;
+    border-radius: 8px;
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+    margin-bottom: 1.5rem;
+  }
+
+  .detail-row {
+    display: flex;
+    justify-content: space-between;
+    padding: 0.5rem 0;
+  }
+
+  .detail-row span:first-child {
+    color: #666;
+  }
+
+  .invoice-table {
+    width: 100%;
+    border-collapse: collapse;
+    margin-bottom: 1.5rem;
+  }
+
+  .invoice-table th,
+.invoice-table td {
+  padding: 0.75rem;
+  border-bottom: 1px solid #ddd;
+  text-align: left; /* Cambiar a "left" para alinear texto a la izquierda */
+}
+
+.invoice-table th:last-child,
+.invoice-table td:last-child {
+  text-align: right; /* Precios alineados a la derecha */
+}
+
+.invoice-table th:nth-child(2),
+.invoice-table td:nth-child(2) {
+  text-align: center; /* Cantidad alineada al centro */
+}
+
+  .totals {
+    background: #fff;
+    padding: 1.5rem;
+    border-radius: 8px;
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+  }
+
+  .totals-row {
+    display: flex;
+    justify-content: space-between;
+    padding: 0.5rem 0;
+  }
+
+  .totals-row.total {
+    border-top: 2px solid #ddd;
+    font-weight: bold;
+  }
+
+  .continue-button {
+    text-align: center;
+    margin-top: 2rem;
+  }
+
+  .btn-continue {
+    background: #2ca6a4;
+    color: #fff;
+    padding: 0.75rem 2rem;
+    border-radius: 8px;
+    transition: background 0.2s ease;
+    text-decoration: none; /* Elimina la raya del subrayado */
+    display: inline-block; /* Asegura que actúe como un botón */
+  }
+
+  .btn-continue:hover {
+    background: #218f91;
+  }
+
+</style>
