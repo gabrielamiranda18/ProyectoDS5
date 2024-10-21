@@ -1,31 +1,57 @@
 ---
-// ProductCard.astro
-const { product } = Astro.props;
+interface Laptop {
+  id: string;
+  modelo: string;
+  precio: number;
+  en_stock: number;
+  color: string;
+  marca: string;
+  procesador: string;
+  ram: string;
+  almacenamiento: string;
+  tarjeta_grafica: string;
+  anio: number;
+  imagen: string;
+}
+
+const response = await fetch('http://localhost:4321/api/productos');
+const laptops: Laptop[] = await response.json();
+import Layout from "../layouts/Layout.astro";
 ---
-
-<div class="card">
-  <img src={product.imagen} alt={product.modelo} />
-  <h2 class="modelo">{product.modelo}</h2>
-  <div class="estellas">
-    <span>⭐⭐⭐⭐⭐</span>
-    <span>{product.reviews} reviews</span>
+<Layout title="Catálogo">
+  <div class="container">
+    {laptops.map((laptop) => (
+      <div class="card">
+        <img src={laptop.imagen} alt={laptop.modelo} />
+        <h2 class="modelo">{laptop.modelo}</h2>
+        <div class="estellas"></div>
+        <div class="precio">${laptop.precio}</div>
+        <ul class="detalles">
+          <li>Procesador: {laptop.procesador}</li>
+          <li>RAM: {laptop.ram}</li>
+          <li>Almacenamiento: {laptop.almacenamiento}</li>
+          <li>Pantalla: </li>
+          <li>Disponible: {laptop.en_stock}</li>
+          <li>Año: {laptop.anio}</li>
+          <li>Marca: {laptop.marca}</li>
+          <li>Tarjeta grafica: {laptop.tarjeta_grafica}</li>
+        </ul>
+        <a href="#" class="add-to-cart">Añadir al carrito</a>
+      </div>
+    ))}
   </div>
-  <div class="precio">${product.precio}</div>
-  <ul class="detalles">
-    <li>Procesador: {product.procesador}</li>
-    <li>RAM: {product.ram}</li>
-    <li>Almacenamiento: {product.almacenamiento}</li>
-    <li>Pantalla: {product.pantalla}</li>
-    <li>Disponible: {product.stock}</li>
-    <li>Año: {product.anio}</li>
-    <li>Marca: {product.marca}</li>
-    <li>Tarjeta grafica: {product.tarjeta}</li>
-  </ul>
-  <a href="#" class="add-to-cart">Añadir al carrito</a>
-</div>
+  ---
+  <style>
+  .container {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr); /* 3 columnas */
+    gap: 1rem; /* Espaciado entre tarjetas */
+  }
 
-<style>
   .card {
+    display: flex;
+    flex-direction: column; /* Alinear el contenido en columna */
+    justify-content: space-between; /* Distribuir el contenido */
     max-width: 350px;
     border: 1px solid #ddd;
     border-radius: 8px;
@@ -34,8 +60,9 @@ const { product } = Astro.props;
   }
 
   .card img {
-    width: 100%;
+    width: 50%;
     border-radius: 8px 8px 0 0;
+    margin: auto;
   }
 
   .product-name {
@@ -65,6 +92,7 @@ const { product } = Astro.props;
     list-style: none;
     padding: 0;
     margin: 0.5rem 0;
+    flex-grow: 1; /* Hacer que los detalles ocupen el espacio restante */
   }
 
   .details li {
@@ -86,4 +114,5 @@ const { product } = Astro.props;
   .add-to-cart:hover {
     background-color: #002c64;
   }
-</style>
+  </style>
+</Layout>
