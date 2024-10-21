@@ -1,0 +1,913 @@
+---
+// Importar los componentes de Header y Layout
+import Header from "../components/Header.astro";
+import Layout from "../layouts/Layout.astro";
+
+interface Laptop {
+  id: string;
+  modelo: string;
+  precio: number;
+  en_stock: number;
+  color: string;
+  marca: string;
+  procesador: string;
+  ram: string;
+  almacenamiento: string;
+  tarjeta_grafica: string;
+  anio: number;
+  imagen: string;
+}
+
+// Obtener el modelo desde la URL usando Astro.url
+const modelo = Astro.url.searchParams.get("modelo");
+
+// Función para obtener los datos de la laptop desde tu API usando una URL absoluta
+async function fetchLaptop(modelo: string): Promise<Laptop | null> {
+  try {
+    // Cambia la URL relativa por la absoluta de tu API local
+    const response = await fetch(`http://localhost:4321/api/laptop?modelo=${modelo}`);
+    if (response.ok) {
+      const laptop = await response.json();
+      return laptop;
+    } else {
+      return null;
+    }
+  } catch (err) {
+    return null;
+  }
+}
+
+const laptop = modelo ? await fetchLaptop(modelo) : null;
+if (!laptop) {
+  // Redirigir a la página 404 si la laptop no se encuentra
+  return new Response(null, {
+    status: 302,
+    headers: {
+      Location: '/404',
+    },
+  });
+}
+---
+
+<Layout title = {laptop ? laptop.modelo : 'No disponible'}>
+    <Header />
+    
+    <main class="product-page">
+        <section class="breadcrumb">
+            <p>
+                <a href="#" class="breadcrumb-link">Inicio</a> &gt;
+                <a href="#" class="breadcrumb-link">Productos</a> &gt;
+                <span class="breadcrumb-current">Laptops Gama Alta</span>
+            </p>
+        </section>
+
+        <button class="back-button">&lt;</button>
+
+        <section class="product-container">
+            <!-- Sección de imágenes -->
+            <div class="product-images">
+                <img
+                    src= {laptop.imagen}
+                    alt= {`Imagen de ${laptop.modelo}`}
+                    class="main-image"
+                />
+            </div>
+
+            <!-- Detalles del producto -->
+            <div class="product-details">
+                <h1>{laptop.modelo}</h1>
+                <p class="price">${laptop.precio}</p>
+                <p class="shipping">Envío gratis</p>
+
+                <!-- Botón para añadir al carrito -->
+                <button class="add-to-cart">Añadir al carrito</button>
+
+                <!-- Métodos de pago -->
+                <div class="payment-methods">
+                    <p>Métodos de pagos aceptados:</p>
+                    <img src="/visa-Logo.png" alt="Visa" />
+                    <img src="/mastercard-logo.png" alt="MasterCard" />
+                    <img src="/clave-logo.png" alt="Clave" />
+                    <img src="/yappy-logo.png" alt="Yappy" />
+                </div>
+
+                <!-- Variaciones del producto -->
+                <div class="product-variants">
+                    <!-- Primera variación -->
+                    <div>
+                        <!-- Fila de especificaciones -->
+                        <div class="variant-specs">
+                            <!-- Columna 1: Procesador y Almacenamiento -->
+                            <div class="column">
+                                <!-- Procesador -->
+                                <div class="spec-item">
+                                    <h4>Procesador</h4>
+                                    <div class="content">
+                                        <img
+                                            src="icono_procesador.png"
+                                            alt="Procesador"
+                                            class="icon"
+                                        />
+                                        <span>{laptop.procesador}</span>
+                                    </div>
+                                </div>
+
+                                <!-- Almacenamiento -->
+                                <div class="spec-item">
+                                    <h4>Almacenamiento</h4>
+                                    <div class="content">
+                                        <img
+                                            src="icono_almacenamiento.png"
+                                            alt="Almacenamiento"
+                                            class="icon"
+                                        />
+                                        <span>{laptop.almacenamiento}</span>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <!-- Columna 2: Memoria RAM y Pantalla -->
+                            <div class="column">
+                                <!-- Memoria RAM -->
+                                <div class="spec-item">
+                                    <h4>Memoria RAM</h4>
+                                    <div class="content">
+                                        <img
+                                            src="icono_ram.png"
+                                            alt="Memoria RAM"
+                                            class="icon"
+                                        />
+                                        <span>{laptop.ram}</span>
+                                    </div>
+                                </div>
+                                <!-- Pantalla -->
+                                <div class="spec-item">
+                                    <h4>Pantalla</h4>
+                                    <div class="content">
+                                        <img
+                                            src="icono_pantalla.png"
+                                            alt="Pantalla"
+                                            class="icon"
+                                        />
+                                        <span>13.6" Liquid Retina</span>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+
+                        <!-- Fila de stock y precio -->
+                        <div class="variant-stock">
+                            <span>En stock: {laptop.en_stock}</span>
+                            <span class="price2">${laptop.precio}</span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Descripción del producto -->
+            <section class="product-description">
+                <h2>Acerca de este artículo</h2>
+                <p>
+                    Laptop ultradelgada con gran rendimiento y duración de
+                    batería.
+                </p>
+            </section><br />
+        </section>
+        <!-- Sección de laptops recomendadas -->
+        <section class="recommended-products">
+            <h2>Laptops que también se vendieron</h2><br />
+            <div class="laptop-cards">
+                <div class="laptop-card">
+                    <img src="/Yoga7i.png" alt="Lenovo Yoga 7i" />
+                    <h3>Lenovo Yoga 7i</h3>
+                    <div class="details">
+                        <div class="rating">★★★★☆ 120</div>
+                        <p class="priceRecomended">$750</p>
+                    </div>
+                    <div class="specs-container">
+                        <ul class="specs">
+                            <li>Procesador: Intel Core i5-1235U</li>
+                            <li>RAM: 8 GB</li>
+                            <li>Almacenamiento: 256 GB SSD</li>
+                            <li>Pantalla: 14" Full HD táctil</li>
+                            <li>Sistema Operativo: Windows 11 Home</li>
+                        </ul>
+                    </div>
+                    <button class="add-to-cartRecomend"
+                        >Añadir al carrito</button
+                    >
+                </div>
+
+                <div class="laptop-card">
+                    <br /><br />
+                    <img
+                        src="/Inspiron7000.png"
+                        alt="Dell Inspiron 14 7000"
+                    /><br /><br /><br />
+                    <h3>Dell Inspiron 14 7000</h3>
+                    <div class="details">
+                        <div class="rating">★★★★☆ 120</div>
+                        <p class="priceRecomended">$750</p>
+                    </div>
+                    <div class="specs-container">
+                        <ul class="specs">
+                            <li>Procesador: Intel Core i5-11300H</li>
+                            <li>RAM: 8 GB</li>
+                            <li>Almacenamiento: 512 GB SSD</li>
+                            <li>Pantalla: 14" Full HD</li>
+                            <li>Sistema Operativo: Windows 11 Home</li>
+                        </ul>
+                    </div>
+                    <button class="add-to-cartRecomend"
+                        >Añadir al carrito</button
+                    >
+                </div>
+
+                <div class="laptop-card">
+                    <br />
+                    <img src="/VivoBook15.png" alt="Asus VivoBook 15" /><br
+                    /><br />
+                    <h3>Asus VivoBook 15</h3>
+                    <div class="details">
+                        <div class="rating">★★★☆☆ 120</div>
+                        <p class="priceRecomended">$700</p>
+                    </div>
+                    <div class="specs-container">
+                        <ul class="specs">
+                            <li>Procesador: Intel Core i5-1135G7</li>
+                            <li>RAM: 8 GB</li>
+                            <li>Almacenamiento: 512 GB SSD</li>
+                            <li>Pantalla: 15.6" Full HD (1920 × 1080)</li>
+                            <li>Sistema Operativo: Windows 11 Home</li>
+                        </ul>
+                    </div>
+                    <button class="add-to-cartRecomend"
+                        >Añadir al carrito</button
+                    >
+                </div>
+            </div>
+        </section>
+
+        <section class="customer-reviews">
+            <div class="reviews-left">
+                <h2>Reseñas del comprador</h2>
+                <div class="rating-summary">
+                    <span class="rating-stars">★★★★☆</span> 200
+                </div>
+                <ul class="rating-bars">
+                    <li>
+                        <span>5 estrellas</span>
+                        <div class="bar">
+                            <div class="bar-filled" style="width: 95%;"></div>
+                        </div>
+                    </li>
+                    <li>
+                        <span>4 estrellas</span>
+                        <div class="bar">
+                            <div class="bar-filled" style="width: 70%;"></div>
+                        </div>
+                    </li>
+                    <li>
+                        <span>3 estrellas</span>
+                        <div class="bar">
+                            <div class="bar-filled" style="width: 50%;"></div>
+                        </div>
+                    </li>
+                    <li>
+                        <span>2 estrellas</span>
+                        <div class="bar">
+                            <div class="bar-filled" style="width: 20%;"></div>
+                        </div>
+                    </li>
+                    <li>
+                        <span>1 estrella</span>
+                        <div class="bar">
+                            <div class="bar-filled" style="width: 5%;"></div>
+                        </div>
+                    </li>
+                </ul>
+                <button class="write-review">Escribe una reseña del vendedor</button>
+    
+                <div id="review-form" style="display: none; margin-top: 10px;" class="review-section">
+                    <div class="rating-stars" id="rating">
+                        <span class="star" data-value="1">★</span>
+                        <span class="star" data-value="2">★</span>
+                        <span class="star" data-value="3">★</span>
+                        <span class="star" data-value="4">★</span>
+                        <span class="star" data-value="5">★</span>
+                    </div>
+                    <textarea id="review-text" placeholder="Escribe tu reseña aquí..." required></textarea>
+                    <button id="submit-review">Enviar Reseña</button>
+                </div>
+    
+                <div class="review-list" id="reviews-list">
+                    <h4>Reseñas:</h4>
+                </div>
+            </div>
+    
+            <div class="reviews-right">
+                <h3>Reseña mejor valorada</h3>
+                <div class="top-review">
+                    <h4>Robert Williams</h4>
+                    <div class="rating-stars">★★★★★</div>
+                    <p>
+                        Compré el Apple MacBook Air M2 2023 y estoy realmente
+                        impresionado. Su diseño es elegante y ligero, lo que lo
+                        hace perfecto para llevar a todas partes. La pantalla
+                        Retina es increíblemente nítida, y el rendimiento del
+                        chip M2 es asombroso; todo, desde la multitarea hasta la
+                        edición de video, es rápido y fluido. La duración de la
+                        batería es notable, fácilmente dura todo el día. El
+                        teclado es cómodo y el trackpad es muy preciso.
+                    </p>
+                    <div class="review-images">
+                        <h4>Reseña con imágenes</h4>
+                        <img src="/MacBook2.png" alt="Review image 2" />
+                        <img src="/MacBook3.png" alt="Review image 3" />
+                    </div>
+                </div>
+            </div>
+            <div class="clearfix"></div>
+        </section>
+    </main>
+
+    <script>
+        document.addEventListener("DOMContentLoaded", function () {
+            const stars = document.querySelectorAll('.star');
+            const writeReviewButton = document.querySelector('.write-review');
+            const reviewForm = document.getElementById('review-form');
+            const submitReviewButton = document.getElementById('submit-review');
+            const reviewsList = document.getElementById('reviews-list');
+            let ratingValue = 0;
+    
+            // Verifica que los elementos existan
+            if (writeReviewButton) {
+                // Función para mostrar el formulario de reseñas
+                writeReviewButton.addEventListener('click', () => {
+                    if (reviewForm) {
+                        reviewForm.style.display = reviewForm.style.display === 'none' ? 'block' : 'none';
+                        resetStars(); // Resetea las estrellas cada vez que se muestra el formulario
+                    }
+                });
+            }
+    
+            // Agregar funcionalidad a las estrellas
+            stars.forEach(star => {
+                star.addEventListener('click', () => {
+                    const value = star.getAttribute('data-value');
+                    ratingValue = value ? Number(value) : 0; // Convertir a número o 0 si null
+                    resetStars();
+                    highlightStars(ratingValue);
+                });
+            });
+    
+            function resetStars() {
+                stars.forEach(star => {
+                    star.classList.remove('selected');
+                });
+            }
+    
+            // Especificar el tipo de parámetro 'value'
+            function highlightStars(value: number) {
+                for (let i = 0; i < value; i++) {
+                    stars[i].classList.add('selected');
+                }
+            }
+    
+            // Manejar el envío del formulario
+            if (submitReviewButton) {
+                submitReviewButton.addEventListener('click', (e) => {
+                    e.preventDefault();
+                    
+                    // Asegurarse de que reviewTextElement no sea null y que sea del tipo correcto
+                    const reviewTextElement = document.getElementById('review-text') as HTMLTextAreaElement; // Afirmar el tipo
+                    
+                    const reviewText = reviewTextElement ? reviewTextElement.value.trim() : ''; // Ahora 'value' es reconocido
+                    
+                    if (ratingValue > 0 && reviewText) {
+                        addReview(ratingValue, reviewText);
+                        if (reviewTextElement) {
+                            reviewTextElement.value = ''; // Limpiar el textarea
+                        }
+                        ratingValue = 0; // Resetear la puntuación
+                        resetStars(); // Resetear estrellas
+                        if (reviewForm) {
+                            reviewForm.style.display = 'none'; // Ocultar el formulario después de enviar
+                        }
+                    } else {
+                        alert('Por favor, selecciona una puntuación y escribe una reseña.');
+                    }
+                });
+            }
+    
+            // Función para agregar reseña a la lista
+            function addReview(rating: number, text: string) {
+                const reviewItem = document.createElement('div');
+                reviewItem.classList.add('review-item');
+                reviewItem.innerHTML = `
+                    <div class="rating-stars">${'★'.repeat(rating)}${'☆'.repeat(5 - rating)}</div>
+                    <p>${text}</p>
+                `;
+                if (reviewsList) {
+                    reviewsList.appendChild(reviewItem); // Asegurarse de que reviewsList no es null
+                }
+            }
+        });
+    </script>
+    <style>
+        .product-page {
+            width: 90%;
+            max-width: 1200px;
+            margin: 0 auto;
+            font-family: Arial, sans-serif;
+            padding: 20px;
+        }
+
+        .breadcrumb {
+            font-size: 14px;
+            margin-bottom: 20px;
+        }
+
+        .breadcrumb-link {
+            text-decoration: none;
+            color: #999;
+            font-weight: normal;
+            margin-right: 5px;
+        }
+
+        .breadcrumb-link:hover {
+            color: #000;
+        }
+
+        .breadcrumb-current {
+            font-weight: bold;
+            color: #333;
+            margin-left: 5px;
+        }
+
+        .back-button {
+            font-size: 40px;
+            margin-bottom: 20px;
+            background: none;
+            border: none;
+            cursor: pointer;
+        }
+
+        .product-container {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 40px;
+        }
+
+        .product-images {
+            display: flex;
+            align-items: center; /* Centra las imágenes verticalmente */
+        }
+
+        .main-image {
+            width: 100%;
+            height: auto;
+            margin-bottom: 10px;
+        }
+
+        .thumbnail-images {
+            display: flex;
+            flex-direction: column; /* Coloca las miniaturas en columna */
+            margin-right: 10px; /* Espacio entre miniaturas y la imagen principal */
+        }
+
+        .thumbnail-images img {
+            width: 100px;
+            height: auto;
+            cursor: pointer;
+            margin-bottom: 10px; /* Espacio entre las miniaturas */
+        }
+
+        .product-details h1 {
+            font-size: 24px;
+            margin-bottom: 10px;
+            border-bottom: 1px solid #ddd; /* Línea divisora */
+            padding-bottom: 30px; /* Espacio entre el texto y la línea */
+        }
+
+        .price {
+            font-size: 24px;
+            font-weight: bold;
+            margin-bottom: 5px;
+        }
+
+        .price2 {
+            font-size: 17px;
+            font-weight: bold;
+            margin-bottom: 5px;
+        }
+
+        .shipping {
+            color: #666;
+            margin-bottom: 20px;
+        }
+
+        .add-to-cart {
+            background-color: #0047ab;
+            color: white;
+            padding: 10px 20px;
+            border: none;
+            cursor: pointer;
+            font-size: 16px;
+            margin-bottom: 20px;
+            border-radius: 5px;
+            width: 210px;
+        }
+
+        .payment-methods {
+            margin-bottom: 20px;
+            border-bottom: 1px solid #ddd; /* Línea divisora */
+            padding-bottom: 30px; /* Espacio entre el texto y la línea */
+        }
+
+        .payment-methods img {
+            height: 30px;
+            margin-right: 10px;
+        }
+
+        .product-variants {
+            display: flex;
+            flex-direction: column;
+            gap: 20px;
+        }
+
+        .variant {
+            background-color: #f3f3f3;
+            padding: 15px;
+            border-radius: 8px;
+        }
+        .variant-grid {
+            display: grid;
+            grid-template-columns: auto 1fr;
+            gap: 10px;
+        }
+
+        .variant-specs {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 20px;
+            background-color: #eaeaea;
+            padding: 10px;
+            border-radius: 8px 8px 0 0;
+        }
+
+        .column {
+            display: flex;
+            flex-direction: column;
+            gap: 10px;
+        }
+
+        .spec-item {
+            display: flex;
+            flex-direction: column; /* Mantiene el título en una fila separada */
+            gap: 5px;
+        }
+
+        .spec-item .content {
+            display: flex;
+            align-items: center; /* Alinea verticalmente el icono con el texto */
+            gap: 10px; /* Espacio entre el ícono y la descripción */
+        }
+
+        .icon {
+            width: 30px;
+            height: 30px;
+        }
+
+        .variant-stock {
+            display: flex;
+            justify-content: space-between;
+            background-color: white;
+            padding: 10px;
+            border-radius: 0 0 8px 8px;
+            font-weight: bold;
+            border: 1px solid #eaeaea;
+        }
+
+        .product-description {
+            margin-top: -80px; /* Subir la descripción para que se acerque a las imágenes */
+        }
+
+        .product-description h2 {
+            font-size: 18px;
+            margin-bottom: 10px;
+        }
+
+        .product-description p {
+            font-size: 16px;
+        }
+
+        footer {
+            margin-top: 40px; /* Asegura que haya espacio suficiente entre el contenido y el footer */
+        }
+
+        @media (max-width: 768px) {
+            .product-container {
+                grid-template-columns: 1fr;
+            }
+
+            .product-description {
+                margin-top: 20px; /* Ajuste para pantallas pequeñas */
+            }
+        }
+
+        .recommended-products {
+            padding: 20px;
+        }
+
+        .recommended-products h2 {
+            font-size: 24px;
+            margin-bottom: 20px;
+            text-align: center;
+        }
+
+        .laptop-cards {
+            display: flex;
+            gap: 20px;
+        }
+
+        .laptop-card {
+            background-color: transparent; /* Cambiado a transparente */
+            padding: 20px;
+            border-radius: 8px;
+            flex: 1;
+            display: flex;
+            flex-direction: column;
+            justify-content: space-between;
+            align-items: flex-start; /* Asegura que todo esté alineado a la izquierda */
+        }
+
+        .laptop-card img {
+            max-width: 100%;
+            height: auto;
+            margin-bottom: 20px;
+        }
+
+        .laptop-card h3 {
+            font-size: 18px;
+            margin-bottom: 10px;
+            text-align: left; /* Texto alineado a la izquierda */
+        }
+
+        .details {
+            display: flex;
+            flex-direction: column;
+            align-items: flex-start; /* Asegura que el texto esté alineado a la izquierda */
+            margin-bottom: 10px;
+        }
+
+        .rating {
+            font-size: 20px;
+            color: #ffa500;
+            display: flex;
+            align-items: center;
+        }
+
+        .priceRecomended {
+            font-size: 20px;
+            font-weight: bold;
+            color: #333;
+            margin-top: 5px; /* Añadimos un pequeño margen superior para dar espacio entre las estrellas y el precio */
+        }
+
+        .specs-container {
+            display: flex;
+            flex-direction: column; /* Apilamos los elementos en columna */
+            align-items: flex-start; /* Asegura que las especificaciones estén alineadas a la izquierda */
+            margin-top: 0px; /* Añadir margen superior para espacio */
+            margin-left: 20px; /* Aumenta este valor para mover más a la derecha */
+        }
+
+        .specs {
+            padding: 0;
+            margin: 0; /* Elimina márgenes por defecto */
+            line-height: 1.5; /* Mejora la legibilidad */
+        }
+
+        .specs li {
+            font-size: 14px;
+            margin-bottom: 5px; /* Espacio entre los elementos de la lista */
+        }
+
+        .add-to-cart {
+            background-color: #071952;
+            color: white;
+            padding: 10px 20px;
+            border: none;
+            cursor: pointer;
+            font-size: 16px;
+            border-radius: 5px;
+            width: 40%;
+            text-align: center; /* Asegura que el texto esté centrado dentro del botón */
+        }
+
+        .add-to-cartRecomend {
+            background-color: #071952;
+            color: white;
+            padding: 10px 20px;
+            border: none;
+            cursor: pointer;
+            font-size: 16px;
+            border-radius: 5px;
+            width: 100%;
+            text-align: center; /* Asegura que el texto esté centrado dentro del botón */
+            margin-top: 10px;
+        }
+
+        .laptop-card button {
+            align-self: stretch; /* Hace que los botones tengan el mismo ancho */
+        }
+
+        /* Asegura que las tarjetas sean del mismo tamaño */
+        .laptop-cards {
+            display: flex;
+            gap: 20px;
+        }
+
+        .laptop-card {
+            display: flex;
+            flex-direction: column;
+            justify-content: space-between;
+        }
+
+        @media (max-width: 768px) {
+            .laptop-cards {
+                flex-direction: column;
+            }
+        }
+
+        h4 {
+            margin: 0; /* Elimina los márgenes por defecto */
+            font-size: 1rem; /* Tamaño de la fuente */
+            font-weight: bold; /* Hace que el texto sea en negritas */
+            margin-bottom: 5px; /* Añade un espacio debajo del título */
+        }
+
+        .customer-reviews {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 40px;
+            margin-top: 40px;
+            border-top: 1px solid #ddd;
+            padding-top: 40px;
+        }
+
+        .reviews-left {
+            display: flex;
+            flex-direction: column;
+            gap: 20px;
+        }
+
+        .rating-summary {
+            font-size: 24px;
+            display: flex;
+            align-items: center;
+        }
+
+        .rating-stars {
+            color: #ffa500;
+            font-size: 30px;
+            margin-right: 10px;
+        }
+
+        .rating-bars {
+            list-style: none;
+            padding: 0;
+            margin: 0;
+            display: flex;
+            flex-direction: column;
+            gap: 10px;
+            width: 100%;
+        }
+
+        .rating-bars li {
+            display: flex;
+            justify-content: space-between; /* Alinea el texto y la barra */
+            align-items: center;
+        }
+
+        .rating-bars li span {
+            width: 100px; /* Define un ancho para el texto para que quede alineado a la izquierda */
+            text-align: left;
+        }
+
+        .rating-bars .bar {
+            width: 70%;
+            height: 10px;
+            background-color: #e0e0e0;
+            position: relative;
+            border-radius: 5px; /* Redondea las esquinas de la barra */
+            overflow: hidden; /* Asegura que el contenido dentro de la barra también esté redondeado */
+        }
+
+        .bar-filled {
+            height: 100%;
+            background-color: #ffa500;
+            position: absolute;
+        }
+
+        .write-review {
+            background-color: transparent; /* Quita el fondo */
+            color: #0047ab; /* Cambia el color del texto al mismo azul que tenía el fondo */
+            padding: 10px 20px;
+            border: 2px solid #0047ab; /* Añade un borde azul */
+            border-radius: 10px; /* Redondea el botón */
+            cursor: pointer;
+            font-size: 16px;
+            transition:
+                background-color 0.3s,
+                color 0.3s; /* Añade una transición para un efecto suave */
+        }
+
+        .write-review:hover {
+            background-color: #0047ab; /* Fondo azul al pasar el mouse */
+            color: white; /* Cambia el color del texto al pasar el mouse */
+        }
+
+        .review-section {
+            margin-top: 20px;
+        }
+
+        .rating-stars {
+            cursor: pointer;
+        }
+
+        .star {
+            font-size: 30px;
+            color: lightgray;
+        }
+
+        .star.selected,
+        .star:hover,
+        .star:hover ~ .star {
+            color: gold;
+        }
+
+        textarea {
+            width: 100%;
+            height: 100px;
+            margin-top: 10px;
+        }
+
+        button {
+            margin-top: 10px;
+            padding: 10px;
+            background: #4caf50;
+            color: white;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+        }
+
+        .review-list {
+            margin-top: 20px;
+        }
+
+        .review-item {
+            border: 1px solid #ccc;
+            padding: 10px;
+            margin-top: 10px;
+            border-radius: 5px;
+        }
+
+        .clearfix::after {
+            content: "";
+            clear: both;
+            display: table;
+        }
+
+        .reviews-right {
+            display: flex;
+            flex-direction: column;
+            gap: 20px;
+        }
+
+        .top-review {
+            background-color: #f9f9f9;
+            padding: 20px;
+            border-radius: 8px;
+        }
+
+        .review-images {
+            display: flex;
+            gap: 10px;
+        }
+
+        .review-images img {
+            width: 100px;
+            height: auto;
+            border-radius: 8px;
+        }
+
+        @media (max-width: 768px) {
+            .customer-reviews {
+                grid-template-columns: 1fr;
+            }
+        }
+    </style>
+</Layout>

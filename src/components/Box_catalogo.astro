@@ -1,0 +1,118 @@
+---
+interface Laptop {
+  id: string;
+  modelo: string;
+  precio: number;
+  en_stock: number;
+  color: string;
+  marca: string;
+  procesador: string;
+  ram: string;
+  almacenamiento: string;
+  tarjeta_grafica: string;
+  anio: number;
+  imagen: string;
+}
+
+const response = await fetch('http://localhost:4321/api/productos');
+const laptops: Laptop[] = await response.json();
+import Layout from "../layouts/Layout.astro";
+---
+<Layout title="Catálogo">
+  <div class="container">
+    {laptops.map((laptop) => (
+      <div class="card">
+        <img src={laptop.imagen} alt={laptop.modelo} />
+        <h2 class="modelo">{laptop.modelo}</h2>
+        <div class="estellas"></div>
+        <div class="precio">${laptop.precio}</div>
+        <ul class="detalles">
+          <li>Procesador: {laptop.procesador}</li>
+          <li>RAM: {laptop.ram}</li>
+          <li>Almacenamiento: {laptop.almacenamiento}</li>
+          <li>Pantalla: </li>
+          <li>Disponible: {laptop.en_stock}</li>
+          <li>Año: {laptop.anio}</li>
+          <li>Marca: {laptop.marca}</li>
+          <li>Tarjeta grafica: {laptop.tarjeta_grafica}</li>
+        </ul>
+        <a href="#" class="add-to-cart">Añadir al carrito</a>
+      </div>
+    ))}
+  </div>
+  ---
+  <style>
+  .container {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr); /* 3 columnas */
+    gap: 1rem; /* Espaciado entre tarjetas */
+  }
+
+  .card {
+    display: flex;
+    flex-direction: column; /* Alinear el contenido en columna */
+    justify-content: space-between; /* Distribuir el contenido */
+    max-width: 350px;
+    border: 1px solid #ddd;
+    border-radius: 8px;
+    padding: 1rem;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+  }
+
+  .card img {
+    width: 50%;
+    border-radius: 8px 8px 0 0;
+    margin: auto;
+  }
+
+  .product-name {
+    font-size: 1.2rem;
+    font-weight: bold;
+    margin: 0.5rem 0;
+  }
+
+  .stars {
+    display: flex;
+    align-items: center;
+    margin: 0.5rem 0;
+  }
+
+  .stars span {
+    margin-left: 0.5rem;
+    color: #777;
+  }
+
+  .price {
+    font-size: 1.5rem;
+    color: #333;
+    margin: 0.5rem 0;
+  }
+
+  .details {
+    list-style: none;
+    padding: 0;
+    margin: 0.5rem 0;
+    flex-grow: 1; /* Hacer que los detalles ocupen el espacio restante */
+  }
+
+  .details li {
+    margin: 0.25rem 0;
+    color: #555;
+  }
+
+  .add-to-cart {
+    display: block;
+    text-align: center;
+    margin-top: 1rem;
+    background-color: #003c84;
+    color: white;
+    padding: 0.75rem;
+    border-radius: 8px;
+    text-decoration: none;
+  }
+
+  .add-to-cart:hover {
+    background-color: #002c64;
+  }
+  </style>
+</Layout>
