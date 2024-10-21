@@ -10,7 +10,10 @@ export const POST: APIRoute = async ({ request }) => {
     const password = formData.get("contraseña")?.toString() || "";
 
     if (!correo || !password) {
-      return new Response("Faltan datos del formulario", { status: 400 });
+      return new Response(
+        JSON.stringify({ message: "Faltan datos del formulario" }),
+        { status: 400, headers: { "Content-Type": "application/json" } }
+      );
     }
 
     // Buscar al usuario en la base de datos por el correo
@@ -21,28 +24,35 @@ export const POST: APIRoute = async ({ request }) => {
       .single();
 
     if (error || !usuario) {
-      return new Response("Usuario o contraseña incorrectos", { status: 401 });
+      return new Response(
+        JSON.stringify({ message: "Usuario o contraseña incorrectos" }),
+        { status: 401, headers: { "Content-Type": "application/json" } }
+      );
     }
 
     // Llamar a la API de hash para verificar la contraseña
     const passwordMatch = await verifyPassword(password, usuario.password);
 
     if (!passwordMatch) {
-      return new Response("Usuario o contraseña incorrectos", { status: 401 });
+      return new Response(
+        JSON.stringify({ message: "Usuario o contraseña incorrectos" }),
+        { status: 401, headers: { "Content-Type": "application/json" } }
+      );
     }
 
     // Redirigir al usuario según su rol
     const tipoUsuario = correo.endsWith("@jselectronics.org") ? "/contacto" : "/Layout";
 
-    return new Response(null, {
-      status: 302,
-      headers: {
-        Location: tipoUsuario,
-      },
-    });
+    return new Response(
+      JSON.stringify({ redirectTo: tipoUsuario }),
+      { status: 200, headers: { "Content-Type": "application/json" } }
+    );
 
   } catch (err) {
     console.error("Error en la API de inicio de sesión:", err);
-    return new Response("Error interno del servidor", { status: 500 });
+    return new Response(
+      JSON.stringify({ message: "Error interno del servidor" }),
+      { status: 500, headers: { "Content-Type": "application/json" } }
+    );
   }
 };
