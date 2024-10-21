@@ -1,6 +1,5 @@
 import type { APIRoute } from "astro";
 import { supabase } from "../../lib/database";
-import { verifyPassword } from "../../lib/HPassword";  // Importamos la API de hash
 
 export const POST: APIRoute = async ({ request }) => {
   try {
@@ -10,39 +9,42 @@ export const POST: APIRoute = async ({ request }) => {
     const password = formData.get("contraseña")?.toString() || "";
 
     if (!correo || !password) {
-      return new Response("Faltan datos del formulario", { status: 400 });
+      return new Response(
+        JSON.stringify({ message: "Faltan datos del formulario" }),
+        { status: 400, headers: { "Content-Type": "application/json" } }
+      );
     }
 
-    // Buscar al usuario en la base de datos por el correo
-    const { data: usuario, error } = await supabase
-      .from("usuarios")
-      .select("*")
-      .eq("correo", correo)
-      .single();
+    // Iniciar sesión utilizando Supabase Auth
+    const { data: authData, error: authError } = await supabase.auth.signInWithPassword({
+      email: correo,
+      password: password,
+    });
 
-    if (error || !usuario) {
-      return new Response("Usuario o contraseña incorrectos", { status: 401 });
+    if (authError || !authData.session) {
+      return new Response(
+        JSON.stringify({ message: "Usuario o contraseña incorrectos" }),
+        { status: 401, headers: { "Content-Type": "application/json" } }
+      );
     }
 
-    // Llamar a la API de hash para verificar la contraseña
-    const passwordMatch = await verifyPassword(password, usuario.password);
-
-    if (!passwordMatch) {
-      return new Response("Usuario o contraseña incorrectos", { status: 401 });
-    }
-
-    // Redirigir al usuario según su rol
+    // Aquí puedes extraer el ID del usuario autenticado
+    const { user } = authData.session;
+    
+    // Obtener el tipo de usuario según el correo (puedes guardar esto en la base de datos para más control)
     const tipoUsuario = correo.endsWith("@jselectronics.org") ? "/contacto" : "/Layout";
 
-    return new Response(null, {
-      status: 302,
-      headers: {
-        Location: tipoUsuario,
-      },
-    });
+    // Enviar la respuesta con redirección al frontend
+    return new Response(
+      JSON.stringify({ redirectTo: tipoUsuario }),
+      { status: 200, headers: { "Content-Type": "application/json" } }
+    );
 
   } catch (err) {
     console.error("Error en la API de inicio de sesión:", err);
-    return new Response("Error interno del servidor", { status: 500 });
+    return new Response(
+      JSON.stringify({ message: "Error interno del servidor" }),
+      { status: 500, headers: { "Content-Type": "application/json" } }
+    );
   }
 };
