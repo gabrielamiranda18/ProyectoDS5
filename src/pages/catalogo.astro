@@ -1,0 +1,63 @@
+---
+import Layout from "../layouts/Layout.astro";
+import Header from "../components/Header.astro";
+import BoxCatalogo from "../components/Box_catalogo.astro";
+import Filtro from "../components/Filtro.astro";
+---
+
+<Layout title="Catálogo">
+    <Header />
+    <div class="main-container">
+        <Filtro />
+        <BoxCatalogo />
+    </div>
+</Layout>
+
+<style>
+.main-container {
+  display: flex;
+  width: 100%;
+}
+
+.filter-container {
+  flex: 0 0 250px; /* Ancho fijo del filtro */
+  position: sticky; /* Mantiene el filtro fijo al hacer scroll */
+  top: 0; /* Se adhiere al tope de la pantalla */
+  height: 100vh; /* Altura completa de la pantalla */
+  overflow-y: auto; /* Permitir desplazamiento si el contenido del filtro es largo */
+  background-color: #f8f8f8; /* Fondo del filtro */
+  border-right: 1px solid #ddd; /* Borde derecho para separación */
+}
+
+.cards-container {
+  flex: 1; /* BoxCatalogo ocupa el resto del espacio */
+  display: grid;
+  grid-template-columns: repeat(3, 1fr); /* Tres columnas en pantallas grandes */
+  gap: 1rem; /* Espacio entre tarjetas */
+  padding: 1rem; /* Espaciado interno */
+}
+
+@media (max-width: 1024px) {
+  .cards-container {
+    grid-template-columns: repeat(2, 1fr); /* Dos columnas en pantallas medianas */
+  }
+}
+
+@media (max-width: 768px) {
+  .main-container {
+    display: block; /* Cambiar a bloque en pantallas pequeñas */
+  }
+
+  .filter-container {
+    width: 100%; /* Filtro ocupa todo el ancho */
+    position: relative; /* Posición relativa para no ser fijo */
+    height: auto; /* Altura automática */
+  }
+
+  .cards-container {
+    grid-template-columns: 1fr; /* Una columna en pantallas pequeñas */
+    width: 100%;
+  }
+}
+
+</style>
