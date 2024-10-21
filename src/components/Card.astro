@@ -11,27 +11,29 @@ const {cuadro, tipo} = Astro.props;
           <h1 class="titulo-principal">Te invitamos a contactarnos</h1>
           <h2 class="subtitulo">¿Tienes preguntas o algún feedback? Estamos aquí para ayudarte, envíanos un mensaje y responderemos dentro de 24 horas.</h2>
           <hr class="linea-separadora" />
-          <div class="formulario">
-                <div class="campo-nombre-apellido">
-                    <div class="campo">
-                        <label for="nombre">Nombre</label>
-                        <input type="text" id="nombre" placeholder="Primer nombre" />
-                    </div>
-                    <div class="campo">
-                        <label for="apellido">Apellido</label>
-                        <input type="text" id="apellido" placeholder="Primer apellido" />
-                    </div>
-                </div>
-                <div class="campo-email">
-                    <label for="email">E-mail</label>
-                    <input type="email" id="email" placeholder="Dirección de e-mail" />
-                </div>
-                <div class="campo-mensaje">
-                    <label for="mensaje">Mensaje</label>
-                    <textarea id="mensaje" placeholder="¡Envíanos un mensaje!" rows="4"></textarea>
-                </div>
-            </div>
-            <button class="boton-enviar">Enviar</button>
+          <form id="contactoForm" action="../api/contacto" accept-charset="UTF-8" method="POST">
+              <div class="formulario">
+                  <div class="campo-nombre-apellido">
+                      <div class="campo">
+                          <label for="nombre">Nombre</label>
+                          <input type="text" id="nombre" name="nombre" placeholder="Primer nombre" required />
+                      </div>
+                      <div class="campo">
+                          <label for="apellido">Apellido</label>
+                          <input type="text" id="apellido" name="apellido" placeholder="Primer apellido" required />
+                      </div>
+                  </div>
+                  <div class="campo-email">
+                      <label for="email">E-mail</label>
+                      <input type="email" id="correo" name="email" placeholder="Dirección de e-mail" required />
+                  </div>
+                  <div class="campo-mensaje">
+                      <label for="mensaje">Mensaje</label>
+                      <textarea id="mensaje" name="mensaje" placeholder="¡Envíanos un mensaje!" rows="4" required></textarea>
+                  </div>
+                  <button type="submit" class="boton-enviar">Enviar</button>
+              </div>
+          </form>
             </>
     ) : (
         <h3>{titulo}</h3>
@@ -63,6 +65,45 @@ const {cuadro, tipo} = Astro.props;
     </div>
   )}
 </div>  
+
+<script>
+  // Intenta obtener el formulario
+  const form = document.getElementById('contactoForm') as HTMLFormElement | null;
+
+  if (form) { // Verificación para asegurarse de que el formulario no sea null
+      form.addEventListener('submit', async function(event) {
+          event.preventDefault(); // Prevenir la recarga de la página
+
+          const formData = new FormData(form); 
+
+          try {
+              // Enviar la solicitud usando fetch
+              const response = await fetch('../api/contacto', {
+                  method: 'POST',
+                  body: formData,
+              });
+
+              // Obtener el resultado en JSON
+              const result = await response.json();
+
+              if (response.ok) {
+                  // Si es exitoso, mostrar alerta con mensaje de éxito
+                  alert(result.success || "Mensaje enviado correctamente");
+                  form.reset();
+              } else {
+                  // Si hubo un error, mostrar alerta con mensaje de error
+                  alert(result.error || "Ocurrió un error al enviar el mensaje");
+              }
+          } catch (error) {
+              console.error("Error al enviar los datos:", error);
+              alert("Ocurrió un error inesperado. Inténtelo de nuevo más tarde.");
+          }
+      });
+  } else {
+      console.error("Formulario no encontrado");
+  }
+</script>
+
 
 <style>
   .card {
@@ -271,3 +312,4 @@ const {cuadro, tipo} = Astro.props;
         font-family: 'Inter', Extra Light, sans-serif;
     }
 </style>
+
