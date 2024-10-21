@@ -1,80 +1,47 @@
 import type { APIRoute } from "astro";
 import { supabase } from "../../lib/database";
-import { hashPassword } from "../../lib/HPassword"; // Importar la función de hash de contraseña
-
-// Función para validar la contraseña
-function validarContraseña(password: string): boolean {
-  const minLength = 8;
-  const hasUpperCase = /[A-Z]/.test(password);
-  const hasLowerCase = /[a-z]/.test(password);
-  const hasNumber = /[0-9]/.test(password);
-  const hasSpecialChar = /[!@#$%^&*()_+\-=\[\]{};':"\\|,.<>\/?`~]/.test(password);
-
-  return (
-    password.length >= minLength &&
-    hasUpperCase &&
-    hasLowerCase &&
-    hasNumber &&
-    hasSpecialChar
-  );
-}
 
 export const POST: APIRoute = async ({ request }) => {
   try {
     // Obtener los datos del formulario
     const formData = await request.formData();
-    const correo = formData.get("Correo")?.toString() || "";
-    const password = formData.get("Passw")?.toString() || "";
+    const correo = formData.get("email")?.toString() || "";
+    const password = formData.get("contraseña")?.toString() || "";
 
-    // Validar la contraseña
-    if (!validarContraseña(password)) {
+    if (!correo || !password) {
       return new Response(
-        JSON.stringify({ message: "La contraseña no cumple con los requisitos mínimos de seguridad." }),
+        JSON.stringify({ message: "Faltan datos del formulario" }),
         { status: 400, headers: { "Content-Type": "application/json" } }
       );
     }
 
-    // Crear al usuario en Supabase Authentication
-    const { data: authData, error: authError } = await supabase.auth.signUp({
+    // Iniciar sesión utilizando Supabase Auth
+    const { data: authData, error: authError } = await supabase.auth.signInWithPassword({
       email: correo,
       password: password,
     });
 
-    if (authError) {
+    if (authError || !authData.session) {
       return new Response(
-        JSON.stringify({ message: `Error al crear el usuario: ${authError.message}` }),
-        { status: 400, headers: { "Content-Type": "application/json" } }
+        JSON.stringify({ message: "Usuario o contraseña incorrectos" }),
+        { status: 401, headers: { "Content-Type": "application/json" } }
       );
     }
 
-    // Hash de la contraseña para la tabla `usuarios`
-    const hashedPassword = await hashPassword(password);
+    // Aquí puedes extraer el ID del usuario autenticado
+    const { user } = authData.session;
+    
+    // Obtener el tipo de usuario según el correo (puedes guardar esto en la base de datos para más control)
+    const tipoUsuario = correo.endsWith("@jselectronics.org") ? "/contacto" : "/Layout";
 
-    // Insertar el nuevo usuario en la tabla `usuarios` con el `auth_user_id` obtenido
-    const { error } = await supabase
-      .from("usuarios")
-      .insert([{ 
-        user_id: authData.user?.id, // ID del usuario desde Auth
-        correo, 
-        password: hashedPassword
-      }]);
+    // Enviar la respuesta con redirección al frontend
+    return new Response(
+      JSON.stringify({ redirectTo: tipoUsuario }),
+      { status: 200, headers: { "Content-Type": "application/json" } }
+    );
 
-    if (error) {
-      return new Response(
-        JSON.stringify({ message: `Error al crear el usuario en la base de datos: ${error.message}` }),
-        { status: 400, headers: { "Content-Type": "application/json" } }
-      );
-    }
-
-    // Redirigir a la página de inicio de sesión después de crear el usuario
-    return new Response(null, {
-      status: 302,
-      headers: {
-        Location: "/login",
-      },
-    });
   } catch (err) {
-    console.error("Error en la API de creación de usuario:", err);
+    console.error("Error en la API de inicio de sesión:", err);
     return new Response(
       JSON.stringify({ message: "Error interno del servidor" }),
       { status: 500, headers: { "Content-Type": "application/json" } }
