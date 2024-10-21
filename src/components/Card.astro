@@ -74,7 +74,7 @@ const {cuadro, tipo} = Astro.props;
       form.addEventListener('submit', async function(event) {
           event.preventDefault(); // Prevenir la recarga de la página
 
-          const formData = new FormData(form); // Ahora puedes usar formData
+          const formData = new FormData(form); 
 
           try {
               // Enviar la solicitud usando fetch
@@ -88,14 +88,14 @@ const {cuadro, tipo} = Astro.props;
 
               if (response.ok) {
                   // Si es exitoso, mostrar alerta con mensaje de éxito
-                  alert(result.success || "Datos enviados correctamente");
+                  alert(result.success || "Mensaje enviado correctamente");
               } else {
                   // Si hubo un error, mostrar alerta con mensaje de error
-                  alert(result.error || "Ocurrió un error al enviar los datos");
+                  alert(result.error || "Ocurrió un error al enviar el mensaje");
               }
           } catch (error) {
               console.error("Error al enviar los datos:", error);
-              alert("Ocurrió un error inesperado. Inténtalo de nuevo más tarde.");
+              alert("Ocurrió un error inesperado. Inténtelo de nuevo más tarde.");
           }
       });
   } else {
