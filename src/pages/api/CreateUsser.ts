@@ -1,6 +1,6 @@
 import type { APIRoute } from "astro";
 import { supabase } from "../../lib/database";
-import { hashPassword } from "../../lib/HPassword"; 
+import { hashPassword } from "../../lib/HPassword";
 
 export const POST: APIRoute = async ({ request, redirect }) => {
   try {
@@ -20,8 +20,15 @@ export const POST: APIRoute = async ({ request, redirect }) => {
       return new Response("Falta la contraseña", { status: 400 });
     }
 
-    // Llamamos a la API de hash para encriptar la contraseña
-    const hashedPassword = await hashPassword(password);
+    // Crear al usuario en Supabase Authentication
+    const { data: authData, error: authError } = await supabase.auth.signUp({
+      email: correo,
+      password: password,
+    });
+
+    if (authError) {
+      throw new Error("Error al crear el usuario en Auth: " + authError.message);
+    }
 
     // Definir el tipo de usuario según el correo
     if (correo.endsWith("@jselectronics.org")) {
@@ -30,10 +37,22 @@ export const POST: APIRoute = async ({ request, redirect }) => {
       tipo_usuario = "Cliente";
     }
 
-    // Insertar el nuevo usuario en la base de datos con la contraseña encriptada
+    // Hash de la contraseña para la tabla `usuarios`
+    const hashedPassword = await hashPassword(password);
+
+    // Insertar el nuevo usuario en la tabla `usuarios` con el `auth_user_id` obtenido
     const { error } = await supabase
       .from("usuarios")
-      .insert([{ nombre, apellido, correo, password: hashedPassword, direccion, celular, tipo_usuario }]);
+      .insert([{ 
+        user_id: authData.user?.id, // ID del usuario desde Auth
+        nombre, 
+        apellido, 
+        correo, 
+        password: hashedPassword, 
+        direccion, 
+        celular, 
+        tipo_usuario 
+      }]);
 
     if (error) {
       throw new Error("Error al crear el usuario: " + error.message);
@@ -43,10 +62,9 @@ export const POST: APIRoute = async ({ request, redirect }) => {
     return new Response(null, {
       status: 302,
       headers: {
-      Location: "/login",
+        Location: "/login",
       },
     });
-
   } catch (err) {
     console.error("Error en la API de creación de usuario:", err);
     return new Response(null, {
