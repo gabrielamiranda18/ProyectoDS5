@@ -8,8 +8,12 @@ import Filtro from "../components/Filtro.astro";
 <Layout title="Catálogo">
     <Header />
     <div class="main-container">
+      <div class="filter-container">
         <Filtro />
+      </div>
+      <div class="card-container">
         <BoxCatalogo />
+      </div>
     </div>
 </Layout>
 
@@ -20,7 +24,7 @@ import Filtro from "../components/Filtro.astro";
 }
 
 .filter-container {
-  flex: 0 0 250px; /* Ancho fijo del filtro */
+  flex: 0 0 200px; /* Ancho fijo del filtro */
   position: sticky; /* Mantiene el filtro fijo al hacer scroll */
   top: 0; /* Se adhiere al tope de la pantalla */
   height: 100vh; /* Altura completa de la pantalla */
@@ -29,19 +33,16 @@ import Filtro from "../components/Filtro.astro";
   border-right: 1px solid #ddd; /* Borde derecho para separación */
 }
 
-.cards-container {
-  flex: 1; /* BoxCatalogo ocupa el resto del espacio */
-  display: grid;
-  grid-template-columns: repeat(3, 1fr); /* Tres columnas en pantallas grandes */
+.card-container {
+  flex: 1; /* Ocupa todo el espacio restante */
+  display: flex; /* Mostrar tarjetas en línea */
+  flex-wrap: wrap; /* Envolver tarjetas si no caben en una línea */
   gap: 1rem; /* Espacio entre tarjetas */
-  padding: 1rem; /* Espaciado interno */
+  padding-top: 30px; /* Espaciado superior */
+  padding-left: 30px; /* Espaciado interno */
+  padding-bottom: 30px;
 }
 
-@media (max-width: 1024px) {
-  .cards-container {
-    grid-template-columns: repeat(2, 1fr); /* Dos columnas en pantallas medianas */
-  }
-}
 
 @media (max-width: 768px) {
   .main-container {
@@ -54,10 +55,6 @@ import Filtro from "../components/Filtro.astro";
     height: auto; /* Altura automática */
   }
 
-  .cards-container {
-    grid-template-columns: 1fr; /* Una columna en pantallas pequeñas */
-    width: 100%;
-  }
 }
 
 </style>
