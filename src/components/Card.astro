@@ -89,6 +89,7 @@ const {cuadro, tipo} = Astro.props;
               if (response.ok) {
                   // Si es exitoso, mostrar alerta con mensaje de éxito
                   alert(result.success || "Mensaje enviado correctamente");
+                  form.reset();
               } else {
                   // Si hubo un error, mostrar alerta con mensaje de error
                   alert(result.error || "Ocurrió un error al enviar el mensaje");
