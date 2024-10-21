@@ -18,7 +18,7 @@ const response = await fetch('http://localhost:4321/api/productos');
 const laptops: Laptop[] = await response.json();
 import Layout from "../layouts/Layout.astro";
 ---
-<Layout title="Catálogo">
+
   <div class="container">
     {laptops.map((laptop) => (
       <div class="card">
@@ -36,19 +36,18 @@ import Layout from "../layouts/Layout.astro";
           <li>Marca: {laptop.marca}</li>
           <li>Tarjeta grafica: {laptop.tarjeta_grafica}</li>
         </ul>
-        <a href="#" class="add-to-cart">Añadir al carrito</a>
+        <a href=`http://localhost:4321/laptop?modelo=${laptop.modelo}` class="add-to-cart">Ver producto</a>
       </div>
     ))}
   </div>
-  ---
   <style>
   .container {
     display: grid;
-    grid-template-columns: repeat(3, 1fr); /* 3 columnas */
-    gap: 1rem; /* Espaciado entre tarjetas */
+    grid-template-columns: repeat(3, 1fr); /* Tres columnas fijas */
+    gap: 1rem; /* Espacio entre tarjetas */
+    width: 100%; /* Asegura que el contenedor ocupe todo el ancho disponible */
   }
-
-  .card {
+    .card {
     display: flex;
     flex-direction: column; /* Alinear el contenido en columna */
     justify-content: space-between; /* Distribuir el contenido */
@@ -114,5 +113,16 @@ import Layout from "../layouts/Layout.astro";
   .add-to-cart:hover {
     background-color: #002c64;
   }
+  
+  @media (max-width: 1024px) {
+    .container {
+      grid-template-columns: repeat(2, 1fr); /* Dos columnas en pantallas medianas */
+    }
+  }
+
+  @media (max-width: 768px) {
+    .container {
+      grid-template-columns: 1fr; /* Una columna en pantallas pequeñas */
+    }
+  }
   </style>
-</Layout>
